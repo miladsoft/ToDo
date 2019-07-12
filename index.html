@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>To do list</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css"/>
+    <style>
+        ul{
+            list-style-type: none;
+            padding-left: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div id="appTasks" class="ui container">
+        <br>
+        <br>
+        <div class="ui fluid right action input">
+            <input type="text" placeholder="Add task" autofocus v-on:keyup.enter="addTask" v-model="task">
+            <button class="ui teal right labeled icon button" @click="addTask">
+            <i class="add square icon"></i>    
+            Add task</button>
+        </div>
+       
+
+        <ul v-for="task in tasks">
+            <li>
+                <div class="ui clearing red segment" v-bind:class="{disabled:task.checked}">
+                    <input type="checkbox" name="" id="" v-model="task.checked">
+                    <label class="ui label teal horizontal" for="descriptionTask" v-bind:class="{disabled:task.checked}">{{ task.text }}</label>
+                    <button class="mini ui red right floated button" @click="removeTask(task)">
+                        <i class="remove icon"></i>
+                    Remove task</button>
+                </div>             
+            </li>
+        </ul>
+    </div>
+
+  
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
