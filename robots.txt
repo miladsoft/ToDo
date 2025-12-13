@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://miladsoft.github.io/ToDo/sitemap.xml
