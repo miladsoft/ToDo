@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>TODO - Professional Team Task Management</title>
+    <meta name="description" content="TODO is a powerful team collaboration tool with Kanban board, task assignment, activity tracking, and drag & drop. Manage your team's tasks efficiently with detailed logging and member management.">
+    <meta name="keywords" content="todo, task management, kanban board, team collaboration, project management, task tracking, drag and drop, activity log, team tasks">
+    <meta name="author" content="TODO Team">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://miladsoft.github.io/ToDo/">
+    <meta property="og:title" content="TODO - Professional Team Task Management">
+    <meta property="og:description" content="Powerful team collaboration tool with Kanban board, task assignment, and complete activity tracking.">
+    <meta property="og:image" content="https://miladsoft.github.io/ToDo/assets/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="TODO - Team Task Manager">
+    <meta property="og:site_name" content="TODO">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://miladsoft.github.io/ToDo/">
+    <meta property="twitter:title" content="TODO - Professional Team Task Management">
+    <meta property="twitter:description" content="Powerful team collaboration tool with Kanban board, task assignment, and complete activity tracking.">
+    <meta property="twitter:image" content="https://miladsoft.github.io/ToDo/assets/images/twitter-card.png">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#2d1b4e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="TODO">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/icons/favicon-48x48.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://miladsoft.github.io/ToDo/">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .header-left h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 5px;
+        }
+        
+        .header-left p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .header-right {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            background: #f9f9f9;
+            border-color: #999;
+        }
+        
+        .btn.primary {
+            background: #222;
+            color: white;
+            border-color: #222;
+        }
+        
+        .btn.primary:hover {
+            background: #000;
+        }
+        
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+        }
+        
+        .stat-card .number {
+            font-size: 32px;
+            font-weight: 600;
+            color: #222;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card .label {
+            font-size: 13px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Team Section */
+        .team-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 25px;
+        }
+        
+        .team-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .team-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #222;
+        }
+        
+        .team-members {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .member-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .member-chip:hover {
+            background: #ebebeb;
+        }
+        
+        .member-chip.active {
+            background: #222;
+            color: white;
+            border-color: #222;
+        }
+        
+        .member-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 11px;
+            color: white;
+        }
+        
+        /* Toolbar */
+        .toolbar {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .toolbar input[type="text"] {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        
+        .toolbar input[type="text"]:focus {
+            border-color: #888;
+        }
+        
+        /* Kanban Board */
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        
+        .column {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 500px;
+        }
+        
+        .column-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .column-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #222;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .column-count {
+            background: #f5f5f5;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+        }
+        
+        /* Task Card */
+        .task-card {
+            background: #fafafa;
+            border: 1px solid #e8e8e8;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        
+        .task-card:hover {
+            border-color: #ccc;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+        
+        .task-card.priority-high {
+            border-left: 3px solid #d32f2f;
+        }
+        
+        .task-card.priority-normal {
+            border-left: 3px solid #1976d2;
+        }
+        
+        .task-card.priority-low {
+            border-left: 3px solid #999;
+        }
+        
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .task-title {
+            flex: 1;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            line-height: 1.5;
+        }
+        
+        .task-priority {
+            width: 28px;
+            height: 28px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+        
+        .task-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .task-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .task-assignee {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 8px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+        }
+        
+        .assignee-avatar {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 9px;
+            color: white;
+        }
+        
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal {
+            background: white;
+            border-radius: 8px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .modal-header h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #222;
+        }
+        
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: #f5f5f5;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .modal-close:hover {
+            background: #e0e0e0;
+        }
+        
+        .modal-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+        
+        .modal-section {
+            margin-bottom: 25px;
+        }
+        
+        .modal-section h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .modal-section textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            outline: none;
+        }
+        
+        .modal-section textarea:focus {
+            border-color: #888;
+        }
+        
+        .task-details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .detail-item {
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #e8e8e8;
+        }
+        
+        .detail-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .detail-value {
+            font-size: 14px;
+            font-weight: 500;
+            color: #222;
+        }
+        
+        .detail-value select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+            background: white;
+        }
+        
+        /* Activity Log */
+        .activity-log {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .activity-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border: 1px solid #e8e8e8;
+        }
+        
+        .activity-icon {
+            width: 32px;
+            height: 32px;
+            background: #222;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-text {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        
+        .activity-time {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        /* Team Management Modal */
+        .member-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .member-form input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+        }
+        
+        .member-form input:focus {
+            border-color: #888;
+        }
+        
+        .members-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .member-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #f9f9f9;
+            border: 1px solid #e8e8e8;
+            border-radius: 6px;
+        }
+        
+        .member-item-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 16px;
+            color: white;
+        }
+        
+        .member-item-info {
+            flex: 1;
+        }
+        
+        .member-item-name {
+            font-weight: 500;
+            color: #222;
+            margin-bottom: 2px;
+        }
+        
+        .member-item-role {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .member-item-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .icon-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .icon-btn:hover {
+            background: #f5f5f5;
+            border-color: #999;
+        }
+        
+        .icon-btn.danger {
+            color: #d32f2f;
+        }
+        
+        .icon-btn.danger:hover {
+            background: #d32f2f;
+            color: white;
+            border-color: #d32f2f;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+        
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            opacity: 0.3;
+        }
+        
+        .empty-state p {
+            font-size: 14px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .kanban-board {
+                grid-template-columns: 1fr;
+            }
+            
+            .column {
+                min-height: 300px;
+            }
+            
+            .toolbar {
+                flex-direction: column;
+            }
+            
+            .toolbar input[type="text"],
+            .toolbar .btn {
+                width: 100%;
+            }
+            
+            .modal {
+                max-height: 95vh;
+            }
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #999;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <h1><i class="fas fa-check-circle"></i> TODO</h1>
+                <p>Professional team task management</p>
+            </div>
+            <div class="header-right">
+                <button class="btn" @click="showTeamModal = true">
+                    <i class="fas fa-user-plus"></i> Manage Team
+                </button>
+                <button class="btn" @click="exportData">
+                    <i class="fas fa-download"></i> Export
+                </button>
+                <button class="btn" @click="importData">
+                    <i class="fas fa-upload"></i> Import
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-card">
+                <span class="number">{{ stats.todo }}</span>
+                <span class="label"><i class="fas fa-circle"></i> To Do</span>
+            </div>
+            <div class="stat-card">
+                <span class="number">{{ stats.doing }}</span>
+                <span class="label"><i class="fas fa-spinner"></i> Doing</span>
+            </div>
+            <div class="stat-card">
+                <span class="number">{{ stats.done }}</span>
+                <span class="label"><i class="fas fa-check-circle"></i> Done</span>
+            </div>
+            <div class="stat-card">
+                <span class="number">{{ teamMembers.length }}</span>
+                <span class="label"><i class="fas fa-users"></i> Team</span>
+            </div>
+        </div>
+
+        <!-- Team Section -->
+        <div class="team-section" v-if="teamMembers.length > 0">
+            <div class="team-header">
+                <h3><i class="fas fa-users"></i> Team Members</h3>
+            </div>
+            <div class="team-members">
+                <div 
+                    class="member-chip"
+                    :class="{ active: selectedMember === null }"
+                    @click="selectedMember = null">
+                    <i class="fas fa-users"></i>
+                    All Members
+                </div>
+                <div 
+                    v-for="member in teamMembers" 
+                    :key="member.id"
+                    class="member-chip"
+                    :class="{ active: selectedMember === member.id }"
+                    @click="selectedMember = member.id">
+                    <div class="member-avatar" :style="{ background: member.color }">
+                        {{ member.initials }}
+                    </div>
+                    {{ member.name }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <input 
+                type="text" 
+                placeholder="Add new task..." 
+                v-model="newTaskText"
+                @keyup.enter="addTask">
+            <button class="btn primary" @click="addTask">
+                <i class="fas fa-plus"></i> Add Task
+            </button>
+            <input 
+                type="text" 
+                placeholder="Search tasks..." 
+                v-model="searchQuery">
+            <button class="btn" @click="clearDone" v-if="stats.done > 0">
+                <i class="fas fa-trash"></i> Clear Done
+            </button>
+        </div>
+
+        <!-- Kanban Board -->
+        <div class="kanban-board">
+            <!-- TODO Column -->
+            <div 
+                class="column"
+                @drop="onDrop('todo', $event)"
+                @dragover="onDragOver"
+                @dragenter.prevent>
+                <div class="column-header">
+                    <span class="column-title"><i class="fas fa-circle"></i> To Do</span>
+                    <span class="column-count">{{ filteredTodoTasks.length }}</span>
+                </div>
+                
+                <div v-if="filteredTodoTasks.length > 0">
+                    <div 
+                        v-for="task in filteredTodoTasks" 
+                        :key="task.id"
+                        class="task-card"
+                        :class="'priority-' + task.priority"
+                        draggable="true"
+                        @dragstart="onDragStart(task, $event)"
+                        @dragend="onDragEnd"
+                        @dblclick="openTaskModal(task)">
+                        
+                        <div class="task-header">
+                            <div class="task-title">{{ task.text }}</div>
+                            <div class="task-priority" :style="{ color: getPriorityColor(task.priority) }">
+                                <i :class="getPriorityIcon(task.priority)"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="task-meta">
+                            <div class="task-meta-item" v-if="task.assignee">
+                                <div class="task-assignee">
+                                    <div class="assignee-avatar" :style="{ background: getAssigneeColor(task.assignee) }">
+                                        {{ getAssigneeInitials(task.assignee) }}
+                                    </div>
+                                    <span>{{ getAssigneeName(task.assignee) }}</span>
+                                </div>
+                            </div>
+                            <div class="task-meta-item">
+                                <i class="far fa-clock"></i>
+                                {{ formatDate(task.createdAt) }}
+                            </div>
+                            <div class="task-meta-item" v-if="task.activityLog.length > 1">
+                                <i class="fas fa-history"></i>
+                                {{ task.activityLog.length }} updates
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div v-else class="empty-state">
+                    <i class="far fa-circle"></i>
+                    <p>No tasks</p>
+                </div>
+            </div>
+
+            <!-- DOING Column -->
+            <div 
+                class="column"
+                @drop="onDrop('doing', $event)"
+                @dragover="onDragOver"
+                @dragenter.prevent>
+                <div class="column-header">
+                    <span class="column-title"><i class="fas fa-spinner"></i> Doing</span>
+                    <span class="column-count">{{ filteredDoingTasks.length }}</span>
+                </div>
+                
+                <div v-if="filteredDoingTasks.length > 0">
+                    <div 
+                        v-for="task in filteredDoingTasks" 
+                        :key="task.id"
+                        class="task-card"
+                        :class="'priority-' + task.priority"
+                        draggable="true"
+                        @dragstart="onDragStart(task, $event)"
+                        @dragend="onDragEnd"
+                        @dblclick="openTaskModal(task)">
+                        
+                        <div class="task-header">
+                            <div class="task-title">{{ task.text }}</div>
+                            <div class="task-priority" :style="{ color: getPriorityColor(task.priority) }">
+                                <i :class="getPriorityIcon(task.priority)"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="task-meta">
+                            <div class="task-meta-item" v-if="task.assignee">
+                                <div class="task-assignee">
+                                    <div class="assignee-avatar" :style="{ background: getAssigneeColor(task.assignee) }">
+                                        {{ getAssigneeInitials(task.assignee) }}
+                                    </div>
+                                    <span>{{ getAssigneeName(task.assignee) }}</span>
+                                </div>
+                            </div>
+                            <div class="task-meta-item">
+                                <i class="far fa-clock"></i>
+                                {{ formatDate(task.createdAt) }}
+                            </div>
+                            <div class="task-meta-item" v-if="task.activityLog.length > 1">
+                                <i class="fas fa-history"></i>
+                                {{ task.activityLog.length }} updates
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div v-else class="empty-state">
+                    <i class="fas fa-hourglass-half"></i>
+                    <p>No tasks in progress</p>
+                </div>
+            </div>
+
+            <!-- DONE Column -->
+            <div 
+                class="column"
+                @drop="onDrop('done', $event)"
+                @dragover="onDragOver"
+                @dragenter.prevent>
+                <div class="column-header">
+                    <span class="column-title"><i class="fas fa-check-circle"></i> Done</span>
+                    <span class="column-count">{{ filteredDoneTasks.length }}</span>
+                </div>
+                
+                <div v-if="filteredDoneTasks.length > 0">
+                    <div 
+                        v-for="task in filteredDoneTasks" 
+                        :key="task.id"
+                        class="task-card"
+                        :class="'priority-' + task.priority"
+                        draggable="true"
+                        @dragstart="onDragStart(task, $event)"
+                        @dragend="onDragEnd"
+                        @dblclick="openTaskModal(task)">
+                        
+                        <div class="task-header">
+                            <div class="task-title">{{ task.text }}</div>
+                            <div class="task-priority" :style="{ color: getPriorityColor(task.priority) }">
+                                <i :class="getPriorityIcon(task.priority)"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="task-meta">
+                            <div class="task-meta-item" v-if="task.assignee">
+                                <div class="task-assignee">
+                                    <div class="assignee-avatar" :style="{ background: getAssigneeColor(task.assignee) }">
+                                        {{ getAssigneeInitials(task.assignee) }}
+                                    </div>
+                                    <span>{{ getAssigneeName(task.assignee) }}</span>
+                                </div>
+                            </div>
+                            <div class="task-meta-item">
+                                <i class="fas fa-check"></i>
+                                {{ formatDate(task.createdAt) }}
+                            </div>
+                            <div class="task-meta-item" v-if="task.activityLog.length > 1">
+                                <i class="fas fa-history"></i>
+                                {{ task.activityLog.length }} updates
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div v-else class="empty-state">
+                    <i class="far fa-check-circle"></i>
+                    <p>No completed tasks</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Task Detail Modal -->
+        <div class="modal-overlay" :class="{ active: showTaskModal }" @click.self="closeTaskModal">
+            <div class="modal" v-if="currentTask" role="dialog" aria-labelledby="task-modal-title" aria-modal="true">
+                <div class="modal-header">
+                    <h2 id="task-modal-title"><i class="fas fa-tasks"></i> Task Details</h2>
+                    <button class="modal-close" @click="closeTaskModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Task Title -->
+                    <div class="modal-section">
+                        <h3><i class="fas fa-heading"></i> Title</h3>
+                        <input 
+                            type="text" 
+                            v-model="currentTask.text"
+                            @change="updateTask('title')"
+                            style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px;">
+                    </div>
+
+                    <!-- Task Details Grid -->
+                    <div class="modal-section">
+                        <h3><i class="fas fa-info-circle"></i> Details</h3>
+                        <div class="task-details-grid">
+                            <div class="detail-item">
+                                <div class="detail-label">Status</div>
+                                <div class="detail-value">
+                                    <select v-model="currentTask.status" @change="updateTask('status')">
+                                        <option value="todo">To Do</option>
+                                        <option value="doing">Doing</option>
+                                        <option value="done">Done</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Priority</div>
+                                <div class="detail-value">
+                                    <select v-model="currentTask.priority" @change="updateTask('priority')">
+                                        <option value="high">High</option>
+                                        <option value="normal">Normal</option>
+                                        <option value="low">Low</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Assignee</div>
+                                <div class="detail-value">
+                                    <select v-model="currentTask.assignee" @change="updateTask('assignee')">
+                                        <option :value="null">Unassigned</option>
+                                        <option v-for="member in teamMembers" :key="member.id" :value="member.id">
+                                            {{ member.name }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Created</div>
+                                <div class="detail-value">{{ formatDateTime(currentTask.createdAt) }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="modal-section">
+                        <h3><i class="fas fa-align-left"></i> Description</h3>
+                        <textarea 
+                            v-model="currentTask.description"
+                            @change="updateTask('description')"
+                            placeholder="Add a detailed description..."></textarea>
+                    </div>
+
+                    <!-- Activity Log -->
+                    <div class="modal-section">
+                        <h3><i class="fas fa-history"></i> Activity Log ({{ currentTask.activityLog.length }})</h3>
+                        <div class="activity-log">
+                            <div v-for="(activity, index) in currentTask.activityLog" :key="index" class="activity-item">
+                                <div class="activity-icon" :style="{ background: getActivityIcon(activity.type).color }">
+                                    <i :class="getActivityIcon(activity.type).icon"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-text">{{ activity.text }}</div>
+                                    <div class="activity-time">
+                                        <i class="far fa-clock"></i> {{ formatDateTime(activity.timestamp) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="modal-section">
+                        <button class="btn" style="width: 100%;" @click="deleteTask">
+                            <i class="fas fa-trash"></i> Delete Task
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Management Modal -->
+        <div class="modal-overlay" :class="{ active: showTeamModal }" @click.self="showTeamModal = false">
+            <div class="modal" role="dialog" aria-labelledby="team-modal-title" aria-modal="true">
+                <div class="modal-header">
+                    <h2 id="team-modal-title"><i class="fas fa-users"></i> Team Management</h2>
+                    <button class="modal-close" @click="showTeamModal = false">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Add Member Form -->
+                    <div class="modal-section">
+                        <h3><i class="fas fa-user-plus"></i> Add Team Member</h3>
+                        <div class="member-form">
+                            <input 
+                                type="text" 
+                                v-model="newMemberName"
+                                placeholder="Name"
+                                @keyup.enter="addTeamMember">
+                            <input 
+                                type="text" 
+                                v-model="newMemberRole"
+                                placeholder="Role (e.g., Developer)"
+                                @keyup.enter="addTeamMember">
+                            <button class="btn primary" @click="addTeamMember">
+                                <i class="fas fa-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Team Members List -->
+                    <div class="modal-section">
+                        <h3><i class="fas fa-users"></i> Team Members ({{ teamMembers.length }})</h3>
+                        <div class="members-list">
+                            <div v-for="member in teamMembers" :key="member.id" class="member-item">
+                                <div class="member-item-avatar" :style="{ background: member.color }">
+                                    {{ member.initials }}
+                                </div>
+                                <div class="member-item-info">
+                                    <div class="member-item-name">{{ member.name }}</div>
+                                    <div class="member-item-role">{{ member.role }}</div>
+                                </div>
+                                <div class="member-item-actions">
+                                    <button class="icon-btn danger" @click="removeTeamMember(member.id)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="teamMembers.length === 0" class="empty-state">
+                            <i class="fas fa-users"></i>
+                            <p>No team members yet</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schema.org structured data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "TODO",
+      "description": "Professional team task management and Kanban board with activity tracking",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "TODO Team"
+      }
+    }
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="js/main.js"></script>
+    
+    <!-- PWA Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/ToDo/sw.js')
+            .then(reg => console.log('Service Worker registered'))
+            .catch(err => console.log('Service Worker registration failed'));
+        });
+      }
+    </script>
+    
+    <!-- Google Analytics (Optional - replace with your tracking ID) -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR-GA-ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'YOUR-GA-ID');
+    </script> -->
+</body>
+</html>
