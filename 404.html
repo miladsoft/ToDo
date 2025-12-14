@@ -233,34 +233,34 @@
         }
         
         .stat-card {
-            background: white;
+            background: var(--surface);
             padding: 20px;
             border-radius: 8px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid var(--border);
             text-align: center;
         }
         
         .stat-card .number {
             font-size: 32px;
             font-weight: 600;
-            color: #222;
+            color: var(--text-strong);
             display: block;
             margin-bottom: 5px;
         }
         
         .stat-card .label {
             font-size: 13px;
-            color: #666;
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         
         /* Team Section */
         .team-section {
-            background: white;
+            background: var(--surface);
             padding: 20px;
             border-radius: 8px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid var(--border);
             margin-bottom: 25px;
         }
         
@@ -274,7 +274,7 @@
         .team-header h3 {
             font-size: 16px;
             font-weight: 600;
-            color: #222;
+            color: var(--text-strong);
         }
         
         .team-members {
@@ -288,8 +288,8 @@
             align-items: center;
             gap: 8px;
             padding: 8px 12px;
-            background: #f5f5f5;
-            border: 1px solid #e0e0e0;
+            background: var(--chip-bg);
+            border: 1px solid var(--border);
             border-radius: 20px;
             font-size: 13px;
             cursor: pointer;
@@ -297,13 +297,13 @@
         }
         
         .member-chip:hover {
-            background: #ebebeb;
+            background: var(--chip-hover);
         }
         
         .member-chip.active {
-            background: #222;
-            color: white;
-            border-color: #222;
+            background: var(--accent);
+            color: var(--accent-contrast);
+            border-color: var(--accent);
         }
         
         .member-avatar {
@@ -320,10 +320,10 @@
         
         /* Toolbar */
         .toolbar {
-            background: white;
+            background: var(--surface);
             padding: 20px;
             border-radius: 8px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid var(--border);
             margin-bottom: 25px;
             display: flex;
             gap: 12px;
@@ -335,15 +335,17 @@
             flex: 1;
             min-width: 200px;
             padding: 10px 15px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-3);
             border-radius: 6px;
             font-size: 14px;
             outline: none;
             transition: border-color 0.2s;
+            background: var(--input-bg);
+            color: var(--text);
         }
         
         .toolbar input[type="text"]:focus {
-            border-color: #888;
+            border-color: var(--scroll-thumb-hover);
         }
         
         /* Kanban Board */
@@ -354,8 +356,8 @@
         }
         
         .column {
-            background: white;
-            border: 1px solid #e0e0e0;
+            background: var(--surface);
+            border: 1px solid var(--border);
             border-radius: 8px;
             padding: 20px;
             min-height: 500px;
@@ -367,30 +369,30 @@
             align-items: center;
             padding-bottom: 15px;
             margin-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
+            border-bottom: 2px solid var(--border);
         }
         
         .column-title {
             font-size: 16px;
             font-weight: 600;
-            color: #222;
+            color: var(--text-strong);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         
         .column-count {
-            background: #f5f5f5;
+            background: var(--chip-bg);
             padding: 4px 12px;
             border-radius: 12px;
             font-size: 13px;
             font-weight: 600;
-            color: #666;
+            color: var(--text-muted);
         }
         
         /* Task Card */
         .task-card {
-            background: #fafafa;
-            border: 1px solid #e8e8e8;
+            background: var(--surface-2);
+            border: 1px solid var(--border-2);
             border-radius: 6px;
             padding: 15px;
             margin-bottom: 12px;
@@ -400,8 +402,8 @@
         }
         
         .task-card:hover {
-            border-color: #ccc;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-color: var(--scroll-thumb);
+            box-shadow: var(--shadow);
             transform: translateY(-2px);
         }
         
@@ -429,15 +431,15 @@
             flex: 1;
             font-size: 14px;
             font-weight: 500;
-            color: #333;
+            color: var(--text);
             line-height: 1.5;
         }
         
         .task-priority {
             width: 28px;
             height: 28px;
-            border: 1px solid #ddd;
-            background: white;
+            border: 1px solid var(--border-3);
+            background: var(--surface);
             border-radius: 4px;
             display: flex;
             align-items: center;
@@ -452,7 +454,7 @@
             gap: 8px;
             margin-top: 10px;
             font-size: 12px;
-            color: #666;
+            color: var(--text-muted);
         }
         
         .task-meta-item {
@@ -466,8 +468,8 @@
             align-items: center;
             gap: 6px;
             padding: 4px 8px;
-            background: white;
-            border: 1px solid #e0e0e0;
+            background: var(--surface);
+            border: 1px solid var(--border);
             border-radius: 12px;
         }
         
@@ -491,7 +493,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.5);
+            background: var(--overlay);
             z-index: 1000;
             align-items: center;
             justify-content: center;
@@ -503,7 +505,7 @@
         }
         
         .modal {
-            background: white;
+            background: var(--surface);
             border-radius: 8px;
             max-width: 800px;
             width: 100%;
@@ -518,30 +520,31 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid var(--border);
         }
         
         .modal-header h2 {
             font-size: 20px;
             font-weight: 600;
-            color: #222;
+            color: var(--text-strong);
         }
         
         .modal-close {
             width: 32px;
             height: 32px;
             border: none;
-            background: #f5f5f5;
+            background: var(--chip-bg);
             border-radius: 4px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
+            color: var(--text);
         }
         
         .modal-close:hover {
-            background: #e0e0e0;
+            background: var(--chip-hover);
         }
         
         .modal-body {
@@ -557,26 +560,49 @@
         .modal-section h3 {
             font-size: 14px;
             font-weight: 600;
-            color: #222;
+            color: var(--text-strong);
             margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+        }
+
+        .field-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-3);
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            background: var(--input-bg);
+            color: var(--text);
+        }
+
+        .field-input.lg {
+            font-size: 16px;
+            padding: 10px 12px;
+        }
+
+        .field-input:focus {
+            border-color: var(--scroll-thumb-hover);
         }
         
         .modal-section textarea {
             width: 100%;
             min-height: 100px;
             padding: 12px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-3);
             border-radius: 6px;
             font-size: 14px;
             font-family: inherit;
             resize: vertical;
             outline: none;
+            background: var(--input-bg);
+            color: var(--text);
         }
         
         .modal-section textarea:focus {
-            border-color: #888;
+            border-color: var(--scroll-thumb-hover);
         }
         
         .task-details-grid {
@@ -586,15 +612,15 @@
         }
         
         .detail-item {
-            background: #f9f9f9;
+            background: var(--surface-3);
             padding: 12px;
             border-radius: 6px;
-            border: 1px solid #e8e8e8;
+            border: 1px solid var(--border-2);
         }
         
         .detail-label {
             font-size: 12px;
-            color: #666;
+            color: var(--text-muted);
             margin-bottom: 5px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -603,17 +629,18 @@
         .detail-value {
             font-size: 14px;
             font-weight: 500;
-            color: #222;
+            color: var(--text-strong);
         }
         
         .detail-value select {
             width: 100%;
             padding: 8px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-3);
             border-radius: 4px;
             font-size: 14px;
             outline: none;
-            background: white;
+            background: var(--input-bg);
+            color: var(--text);
         }
         
         /* Activity Log */
@@ -626,10 +653,10 @@
             display: flex;
             gap: 12px;
             padding: 12px;
-            background: #f9f9f9;
+            background: var(--surface-3);
             border-radius: 6px;
             margin-bottom: 10px;
-            border: 1px solid #e8e8e8;
+            border: 1px solid var(--border-2);
         }
         
         .activity-icon {
@@ -651,13 +678,13 @@
         
         .activity-text {
             font-size: 14px;
-            color: #333;
+            color: var(--text);
             margin-bottom: 4px;
         }
         
         .activity-time {
             font-size: 12px;
-            color: #999;
+            color: var(--text-subtle);
         }
         
         /* Team Management Modal */
@@ -670,14 +697,16 @@
         .member-form input {
             flex: 1;
             padding: 10px 15px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-3);
             border-radius: 6px;
             font-size: 14px;
             outline: none;
+            background: var(--input-bg);
+            color: var(--text);
         }
         
         .member-form input:focus {
-            border-color: #888;
+            border-color: var(--scroll-thumb-hover);
         }
         
         .members-list {
@@ -691,8 +720,8 @@
             align-items: center;
             gap: 12px;
             padding: 12px;
-            background: #f9f9f9;
-            border: 1px solid #e8e8e8;
+            background: var(--surface-3);
+            border: 1px solid var(--border-2);
             border-radius: 6px;
         }
         
@@ -714,13 +743,13 @@
         
         .member-item-name {
             font-weight: 500;
-            color: #222;
+            color: var(--text-strong);
             margin-bottom: 2px;
         }
         
         .member-item-role {
             font-size: 12px;
-            color: #666;
+            color: var(--text-muted);
         }
         
         .member-item-actions {
@@ -731,19 +760,20 @@
         .icon-btn {
             width: 32px;
             height: 32px;
-            border: 1px solid #ddd;
-            background: white;
+            border: 1px solid var(--border-3);
+            background: var(--surface);
             border-radius: 4px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
+            color: var(--text);
         }
         
         .icon-btn:hover {
-            background: #f5f5f5;
-            border-color: #999;
+            background: var(--surface-hover);
+            border-color: var(--scroll-thumb-hover);
         }
         
         .icon-btn.danger {
@@ -760,7 +790,7 @@
         .empty-state {
             text-align: center;
             padding: 40px 20px;
-            color: #999;
+            color: var(--text-subtle);
         }
         
         .empty-state i {
@@ -813,149 +843,16 @@
         }
         
         ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: var(--scroll-track);
         }
         
         ::-webkit-scrollbar-thumb {
-            background: #ccc;
+            background: var(--scroll-thumb);
             border-radius: 4px;
         }
         
         ::-webkit-scrollbar-thumb:hover {
-            background: #999;
-        }
-
-        /* Theme parity overrides (404 mirrors index.html) */
-        .stat-card,
-        .team-section,
-        .toolbar,
-        .column,
-        .modal,
-        .task-assignee,
-        .icon-btn {
-            background: var(--surface);
-        }
-
-        .stat-card,
-        .team-section,
-        .toolbar,
-        .column,
-        .task-assignee {
-            border-color: var(--border);
-        }
-
-        .task-card,
-        .detail-item,
-        .activity-item,
-        .member-item {
-            background: var(--surface-2);
-            border-color: var(--border-2);
-        }
-
-        .column-header {
-            border-bottom-color: var(--border);
-        }
-
-        .column-title,
-        .team-header h3,
-        .stat-card .number,
-        .member-item-name,
-        .detail-value,
-        .modal-header h2,
-        .modal-section h3,
-        .header-left h1 {
-            color: var(--text-strong);
-        }
-
-        .stat-card .label,
-        .header-left p,
-        .task-meta,
-        .detail-label,
-        .member-item-role {
-            color: var(--text-muted);
-        }
-
-        .empty-state,
-        .activity-time {
-            color: var(--text-subtle);
-        }
-
-        .task-title,
-        .activity-text {
-            color: var(--text);
-        }
-
-        .column-count,
-        .modal-close {
-            background: var(--chip-bg);
-            color: var(--text);
-        }
-
-        .modal-close:hover {
-            background: var(--chip-hover);
-        }
-
-        .modal-overlay {
-            background: var(--overlay);
-        }
-
-        .btn {
-            border-color: var(--border-3);
-            background: var(--surface);
-            color: var(--text);
-        }
-
-        .btn:hover {
-            background: var(--surface-hover);
-            border-color: var(--scroll-thumb-hover);
-        }
-
-        .btn.primary {
-            background: var(--accent);
-            color: var(--accent-contrast);
-            border-color: var(--accent);
-        }
-
-        .btn.primary:hover {
-            background: var(--accent-hover);
-        }
-
-        .task-card:hover {
-            border-color: var(--scroll-thumb);
-            box-shadow: var(--shadow);
-        }
-
-        .task-priority,
-        .detail-value select,
-        .member-form input,
-        .toolbar input[type="text"],
-        .modal-section textarea,
-        .field-input {
-            background: var(--input-bg);
-            color: var(--text);
-            border-color: var(--border-3);
-        }
-
-        .toolbar input[type="text"]:focus,
-        .member-form input:focus,
-        .modal-section textarea:focus,
-        .field-input:focus {
-            border-color: var(--scroll-thumb-hover);
-        }
-
-        .field-input {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid var(--border-3);
-            border-radius: 6px;
-            font-size: 14px;
-            font-family: inherit;
-            outline: none;
-        }
-
-        .field-input.lg {
-            font-size: 16px;
-            padding: 10px 12px;
+            background: var(--scroll-thumb-hover);
         }
     </style>
 </head>
