@@ -1,9 +1,10 @@
-const CACHE_NAME = 'todo-v1.0.0';
+const CACHE_NAME = 'todo-v1.0.2';
 const BASE_PATH = '/ToDo';
 
 const urlsToCache = [
   `${BASE_PATH}/`,
   `${BASE_PATH}/index.html`,
+  `${BASE_PATH}/404.html`,
   `${BASE_PATH}/js/main.js`,
   `${BASE_PATH}/manifest.json`,
   `${BASE_PATH}/assets/icons/icon-192x192.png`,

@@ -1,6 +1,11 @@
 new Vue({
     el: '#app',
     data: {
+        // Theme
+        theme: 'light',
+        _themeMql: null,
+        _themeMqlHandler: null,
+
         // Tasks
         tasks: [],
         newTaskText: '',
@@ -87,12 +92,88 @@ new Vue({
     },
     
     mounted() {
+        this.initTheme();
         this.loadTasks();
         this.loadTeam();
         this.updateStats();
     },
+
+    beforeDestroy() {
+        try {
+            if (this._themeMql && this._themeMqlHandler) {
+                if (this._themeMql.removeEventListener) this._themeMql.removeEventListener('change', this._themeMqlHandler);
+                else if (this._themeMql.removeListener) this._themeMql.removeListener(this._themeMqlHandler);
+            }
+        } catch (e) {}
+    },
     
     methods: {
+        // Theme
+        getSystemTheme() {
+            try {
+                const mql = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+                return mql && mql.matches ? 'dark' : 'light';
+            } catch (e) {
+                return 'light';
+            }
+        },
+
+        updateThemeColorMeta(theme) {
+            const meta = document.querySelector('meta[name="theme-color"]');
+            if (!meta) return;
+            meta.setAttribute('content', theme === 'dark' ? '#0f1115' : '#f5f5f5');
+        },
+
+        applyTheme(theme, persist) {
+            const next = theme === 'dark' ? 'dark' : 'light';
+            this.theme = next;
+            document.documentElement.setAttribute('data-theme', next);
+            this.updateThemeColorMeta(next);
+
+            if (persist) {
+                try {
+                    localStorage.setItem('todo-theme', next);
+                } catch (e) {}
+            }
+        },
+
+        initTheme() {
+            let saved = null;
+            try {
+                saved = localStorage.getItem('todo-theme');
+            } catch (e) {}
+
+            const initial = saved || this.getSystemTheme();
+            this.applyTheme(initial, false);
+
+            // Follow system theme only if user hasn't explicitly chosen one.
+            try {
+                if (!saved && window.matchMedia) {
+                    const mql = window.matchMedia('(prefers-color-scheme: dark)');
+                    const handler = () => {
+                        let stillNoSaved = true;
+                        try {
+                            stillNoSaved = !localStorage.getItem('todo-theme');
+                        } catch (e) {}
+                        if (stillNoSaved) {
+                            this.applyTheme(mql.matches ? 'dark' : 'light', false);
+                        }
+                    };
+
+                    this._themeMql = mql;
+                    this._themeMqlHandler = handler;
+                    if (mql.addEventListener) mql.addEventListener('change', handler);
+                    else if (mql.addListener) mql.addListener(handler);
+                }
+            } catch (e) {}
+        },
+
+        toggleTheme() {
+            const next = this.theme === 'dark' ? 'light' : 'dark';
+            this.applyTheme(next, true);
+            this.showNotification(`Theme: ${next}`);
+        },
+
         // Task Management
         addTask() {
             const taskText = this.newTaskText.trim();

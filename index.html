@@ -30,7 +30,7 @@
     <meta property="twitter:image" content="https://miladsoft.github.io/ToDo/assets/images/twitter-card.png">
     
     <!-- PWA Meta Tags -->
-    <meta name="theme-color" content="#2d1b4e">
+    <meta name="theme-color" content="#f5f5f5">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="TODO">
@@ -52,6 +52,22 @@
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+        <!-- Prevent theme flash: apply saved/system theme before paint -->
+        <script>
+            (function () {
+                try {
+                    var key = 'todo-theme';
+                    var saved = localStorage.getItem(key);
+                    var mq = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+                    var theme = saved || (mq && mq.matches ? 'dark' : 'light');
+                    document.documentElement.setAttribute('data-theme', theme);
+
+                    var meta = document.querySelector('meta[name="theme-color"]');
+                    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0f1115' : '#f5f5f5');
+                } catch (e) {}
+            })();
+        </script>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
     <style>
@@ -60,11 +76,83 @@
             padding: 0;
             box-sizing: border-box;
         }
+
+        :root {
+            color-scheme: light;
+
+            --bg: #f5f5f5;
+            --text: #333;
+            --text-strong: #222;
+            --text-muted: #666;
+            --text-subtle: #999;
+
+            --surface: #ffffff;
+            --surface-2: #fafafa;
+            --surface-3: #f9f9f9;
+            --surface-hover: #f9f9f9;
+
+            --border: #e0e0e0;
+            --border-2: #e8e8e8;
+            --border-3: #ddd;
+
+            --shadow: 0 2px 8px rgba(0,0,0,0.08);
+
+            --accent: #222;
+            --accent-hover: #000;
+            --accent-contrast: #fff;
+
+            --chip-bg: #f5f5f5;
+            --chip-hover: #ebebeb;
+
+            --overlay: rgba(0,0,0,0.5);
+
+            --scroll-track: #f1f1f1;
+            --scroll-thumb: #ccc;
+            --scroll-thumb-hover: #999;
+
+            --input-bg: #fff;
+        }
+
+        html[data-theme="dark"] {
+            color-scheme: dark;
+
+            --bg: #0f1115;
+            --text: #e7e7e7;
+            --text-strong: #f2f2f2;
+            --text-muted: #b9bcc6;
+            --text-subtle: #8d91a0;
+
+            --surface: #171a21;
+            --surface-2: #1b1f28;
+            --surface-3: #171a21;
+            --surface-hover: #202633;
+
+            --border: #2a3140;
+            --border-2: #2a3140;
+            --border-3: #3a4356;
+
+            --shadow: 0 2px 10px rgba(0,0,0,0.45);
+
+            --accent: #f2f2f2;
+            --accent-hover: #fff;
+            --accent-contrast: #0f1115;
+
+            --chip-bg: #1b1f28;
+            --chip-hover: #202633;
+
+            --overlay: rgba(0,0,0,0.6);
+
+            --scroll-track: #12151c;
+            --scroll-thumb: #2a3140;
+            --scroll-thumb-hover: #3a4356;
+
+            --input-bg: #171a21;
+        }
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #f5f5f5;
-            color: #333;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
         }
         
@@ -87,12 +175,12 @@
         .header-left h1 {
             font-size: 28px;
             font-weight: 600;
-            color: #222;
+            color: var(--text-strong);
             margin-bottom: 5px;
         }
         
         .header-left p {
-            color: #666;
+            color: var(--text-muted);
             font-size: 14px;
         }
         
@@ -103,8 +191,8 @@
         
         .btn {
             padding: 10px 20px;
-            border: 1px solid #ddd;
-            background: white;
+            border: 1px solid var(--border-3);
+            background: var(--surface);
             border-radius: 6px;
             font-size: 14px;
             cursor: pointer;
@@ -113,21 +201,27 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            color: var(--text);
         }
         
         .btn:hover {
-            background: #f9f9f9;
-            border-color: #999;
+            background: var(--surface-hover);
+            border-color: var(--scroll-thumb-hover);
         }
         
         .btn.primary {
-            background: #222;
-            color: white;
-            border-color: #222;
+            background: var(--accent);
+            color: var(--accent-contrast);
+            border-color: var(--accent);
         }
         
         .btn.primary:hover {
-            background: #000;
+            background: var(--accent-hover);
+        }
+
+        .btn.block {
+            width: 100%;
+            justify-content: center;
         }
         
         /* Stats */
@@ -139,34 +233,34 @@
         }
         
         .stat-card {
-            background: white;
+            background: var(--surface);
             padding: 20px;
             border-radius: 8px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid var(--border);
             text-align: center;
         }
         
         .stat-card .number {
             font-size: 32px;
             font-weight: 600;
-            color: #222;
+            color: var(--text-strong);
             display: block;
             margin-bottom: 5px;
         }
         
         .stat-card .label {
             font-size: 13px;
-            color: #666;
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         
         /* Team Section */
         .team-section {
-            background: white;
+            background: var(--surface);
             padding: 20px;
             border-radius: 8px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid var(--border);
             margin-bottom: 25px;
         }
         
@@ -180,7 +274,7 @@
         .team-header h3 {
             font-size: 16px;
             font-weight: 600;
-            color: #222;
+            color: var(--text-strong);
         }
         
         .team-members {
@@ -194,8 +288,8 @@
             align-items: center;
             gap: 8px;
             padding: 8px 12px;
-            background: #f5f5f5;
-            border: 1px solid #e0e0e0;
+            background: var(--chip-bg);
+            border: 1px solid var(--border);
             border-radius: 20px;
             font-size: 13px;
             cursor: pointer;
@@ -203,13 +297,13 @@
         }
         
         .member-chip:hover {
-            background: #ebebeb;
+            background: var(--chip-hover);
         }
         
         .member-chip.active {
-            background: #222;
-            color: white;
-            border-color: #222;
+            background: var(--accent);
+            color: var(--accent-contrast);
+            border-color: var(--accent);
         }
         
         .member-avatar {
@@ -226,10 +320,10 @@
         
         /* Toolbar */
         .toolbar {
-            background: white;
+            background: var(--surface);
             padding: 20px;
             border-radius: 8px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid var(--border);
             margin-bottom: 25px;
             display: flex;
             gap: 12px;
@@ -241,15 +335,17 @@
             flex: 1;
             min-width: 200px;
             padding: 10px 15px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-3);
             border-radius: 6px;
             font-size: 14px;
             outline: none;
             transition: border-color 0.2s;
+            background: var(--input-bg);
+            color: var(--text);
         }
         
         .toolbar input[type="text"]:focus {
-            border-color: #888;
+            border-color: var(--scroll-thumb-hover);
         }
         
         /* Kanban Board */
@@ -260,8 +356,8 @@
         }
         
         .column {
-            background: white;
-            border: 1px solid #e0e0e0;
+            background: var(--surface);
+            border: 1px solid var(--border);
             border-radius: 8px;
             padding: 20px;
             min-height: 500px;
@@ -273,30 +369,30 @@
             align-items: center;
             padding-bottom: 15px;
             margin-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
+            border-bottom: 2px solid var(--border);
         }
         
         .column-title {
             font-size: 16px;
             font-weight: 600;
-            color: #222;
+            color: var(--text-strong);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         
         .column-count {
-            background: #f5f5f5;
+            background: var(--chip-bg);
             padding: 4px 12px;
             border-radius: 12px;
             font-size: 13px;
             font-weight: 600;
-            color: #666;
+            color: var(--text-muted);
         }
         
         /* Task Card */
         .task-card {
-            background: #fafafa;
-            border: 1px solid #e8e8e8;
+            background: var(--surface-2);
+            border: 1px solid var(--border-2);
             border-radius: 6px;
             padding: 15px;
             margin-bottom: 12px;
@@ -306,8 +402,8 @@
         }
         
         .task-card:hover {
-            border-color: #ccc;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-color: var(--scroll-thumb);
+            box-shadow: var(--shadow);
             transform: translateY(-2px);
         }
         
@@ -335,15 +431,15 @@
             flex: 1;
             font-size: 14px;
             font-weight: 500;
-            color: #333;
+            color: var(--text);
             line-height: 1.5;
         }
         
         .task-priority {
             width: 28px;
             height: 28px;
-            border: 1px solid #ddd;
-            background: white;
+            border: 1px solid var(--border-3);
+            background: var(--surface);
             border-radius: 4px;
             display: flex;
             align-items: center;
@@ -358,7 +454,7 @@
             gap: 8px;
             margin-top: 10px;
             font-size: 12px;
-            color: #666;
+            color: var(--text-muted);
         }
         
         .task-meta-item {
@@ -372,8 +468,8 @@
             align-items: center;
             gap: 6px;
             padding: 4px 8px;
-            background: white;
-            border: 1px solid #e0e0e0;
+            background: var(--surface);
+            border: 1px solid var(--border);
             border-radius: 12px;
         }
         
@@ -397,7 +493,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.5);
+            background: var(--overlay);
             z-index: 1000;
             align-items: center;
             justify-content: center;
@@ -409,7 +505,7 @@
         }
         
         .modal {
-            background: white;
+            background: var(--surface);
             border-radius: 8px;
             max-width: 800px;
             width: 100%;
@@ -424,30 +520,31 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid var(--border);
         }
         
         .modal-header h2 {
             font-size: 20px;
             font-weight: 600;
-            color: #222;
+            color: var(--text-strong);
         }
         
         .modal-close {
             width: 32px;
             height: 32px;
             border: none;
-            background: #f5f5f5;
+            background: var(--chip-bg);
             border-radius: 4px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
+            color: var(--text);
         }
         
         .modal-close:hover {
-            background: #e0e0e0;
+            background: var(--chip-hover);
         }
         
         .modal-body {
@@ -463,26 +560,49 @@
         .modal-section h3 {
             font-size: 14px;
             font-weight: 600;
-            color: #222;
+            color: var(--text-strong);
             margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+        }
+
+        .field-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-3);
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            background: var(--input-bg);
+            color: var(--text);
+        }
+
+        .field-input.lg {
+            font-size: 16px;
+            padding: 10px 12px;
+        }
+
+        .field-input:focus {
+            border-color: var(--scroll-thumb-hover);
         }
         
         .modal-section textarea {
             width: 100%;
             min-height: 100px;
             padding: 12px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-3);
             border-radius: 6px;
             font-size: 14px;
             font-family: inherit;
             resize: vertical;
             outline: none;
+            background: var(--input-bg);
+            color: var(--text);
         }
         
         .modal-section textarea:focus {
-            border-color: #888;
+            border-color: var(--scroll-thumb-hover);
         }
         
         .task-details-grid {
@@ -492,15 +612,15 @@
         }
         
         .detail-item {
-            background: #f9f9f9;
+            background: var(--surface-3);
             padding: 12px;
             border-radius: 6px;
-            border: 1px solid #e8e8e8;
+            border: 1px solid var(--border-2);
         }
         
         .detail-label {
             font-size: 12px;
-            color: #666;
+            color: var(--text-muted);
             margin-bottom: 5px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -509,17 +629,18 @@
         .detail-value {
             font-size: 14px;
             font-weight: 500;
-            color: #222;
+            color: var(--text-strong);
         }
         
         .detail-value select {
             width: 100%;
             padding: 8px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-3);
             border-radius: 4px;
             font-size: 14px;
             outline: none;
-            background: white;
+            background: var(--input-bg);
+            color: var(--text);
         }
         
         /* Activity Log */
@@ -532,10 +653,10 @@
             display: flex;
             gap: 12px;
             padding: 12px;
-            background: #f9f9f9;
+            background: var(--surface-3);
             border-radius: 6px;
             margin-bottom: 10px;
-            border: 1px solid #e8e8e8;
+            border: 1px solid var(--border-2);
         }
         
         .activity-icon {
@@ -557,13 +678,13 @@
         
         .activity-text {
             font-size: 14px;
-            color: #333;
+            color: var(--text);
             margin-bottom: 4px;
         }
         
         .activity-time {
             font-size: 12px;
-            color: #999;
+            color: var(--text-subtle);
         }
         
         /* Team Management Modal */
@@ -576,14 +697,16 @@
         .member-form input {
             flex: 1;
             padding: 10px 15px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-3);
             border-radius: 6px;
             font-size: 14px;
             outline: none;
+            background: var(--input-bg);
+            color: var(--text);
         }
         
         .member-form input:focus {
-            border-color: #888;
+            border-color: var(--scroll-thumb-hover);
         }
         
         .members-list {
@@ -597,8 +720,8 @@
             align-items: center;
             gap: 12px;
             padding: 12px;
-            background: #f9f9f9;
-            border: 1px solid #e8e8e8;
+            background: var(--surface-3);
+            border: 1px solid var(--border-2);
             border-radius: 6px;
         }
         
@@ -620,13 +743,13 @@
         
         .member-item-name {
             font-weight: 500;
-            color: #222;
+            color: var(--text-strong);
             margin-bottom: 2px;
         }
         
         .member-item-role {
             font-size: 12px;
-            color: #666;
+            color: var(--text-muted);
         }
         
         .member-item-actions {
@@ -637,19 +760,20 @@
         .icon-btn {
             width: 32px;
             height: 32px;
-            border: 1px solid #ddd;
-            background: white;
+            border: 1px solid var(--border-3);
+            background: var(--surface);
             border-radius: 4px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
+            color: var(--text);
         }
         
         .icon-btn:hover {
-            background: #f5f5f5;
-            border-color: #999;
+            background: var(--surface-hover);
+            border-color: var(--scroll-thumb-hover);
         }
         
         .icon-btn.danger {
@@ -666,7 +790,7 @@
         .empty-state {
             text-align: center;
             padding: 40px 20px;
-            color: #999;
+            color: var(--text-subtle);
         }
         
         .empty-state i {
@@ -719,16 +843,16 @@
         }
         
         ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: var(--scroll-track);
         }
         
         ::-webkit-scrollbar-thumb {
-            background: #ccc;
+            background: var(--scroll-thumb);
             border-radius: 4px;
         }
         
         ::-webkit-scrollbar-thumb:hover {
-            background: #999;
+            background: var(--scroll-thumb-hover);
         }
     </style>
 </head>
@@ -740,14 +864,18 @@
                 <h1><i class="fas fa-check-circle"></i> TODO</h1>
             </div>
             <div class="header-right">
+                <button class="btn" @click="toggleTheme" :title="theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'" aria-label="Toggle theme">
+                    <i :class="theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'"></i>
+                    {{ theme === 'dark' ? 'Light' : 'Dark' }}
+                </button>
                 <button class="btn" @click="showTeamModal = true">
                     <i class="fas fa-user-plus"></i> Manage Team
                 </button>
                 <button class="btn" @click="exportData">
-                    <i class="fas fa-download"></i> Export
+                    <i class="fas fa-upload"></i> Export
                 </button>
                 <button class="btn" @click="importData">
-                    <i class="fas fa-upload"></i> Import
+                    <i class="fas fa-download"></i> Import
                 </button>
             </div>
         </div>
@@ -1006,7 +1134,7 @@
                             type="text" 
                             v-model="currentTask.text"
                             @change="updateTask('title')"
-                            style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px;">
+                            class="field-input lg">
                     </div>
 
                     <!-- Task Details Grid -->
@@ -1080,7 +1208,7 @@
 
                     <!-- Actions -->
                     <div class="modal-section">
-                        <button class="btn" style="width: 100%;" @click="deleteTask">
+                        <button class="btn block" @click="deleteTask">
                             <i class="fas fa-trash"></i> Delete Task
                         </button>
                     </div>
