@@ -96,6 +96,12 @@ new Vue({
         this.loadTasks();
         this.loadTeam();
         this.updateStats();
+
+        // Hide initial loader (shown while Vue compiles templates)
+        try {
+            const loader = document.getElementById('app-loader');
+            if (loader) loader.style.display = 'none';
+        } catch (e) {}
     },
 
     beforeDestroy() {
