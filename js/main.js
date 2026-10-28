@@ -110,6 +110,8 @@ new Vue({
         // Layout
         activeColumn: 'todo',
         showMenu: false,
+        searchOpen: false,
+        isPhone: false,
 
         // Modals
         showTaskModal: false,
@@ -199,10 +201,6 @@ new Vue({
 
         completion() {
             return this.tasks.length ? Math.round((this.stats.done / this.tasks.length) * 100) : 0;
-        },
-
-        todayLabel() {
-            return new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
         }
     },
 
@@ -229,8 +227,14 @@ new Vue({
         this.loadTeam();
         this.updateStats();
 
+        this._phoneMql = window.matchMedia('(max-width: 767px)');
+        this.isPhone = this._phoneMql.matches;
+
         this._onKeydown = (e) => this.onKeydown(e);
-        this._onResize = () => this.syncBoardScroll(false);
+        this._onResize = () => {
+            this.isPhone = this._phoneMql.matches;
+            this.syncBoardScroll(false);
+        };
         window.addEventListener('keydown', this._onKeydown);
         window.addEventListener('resize', this._onResize);
 
@@ -301,8 +305,8 @@ new Vue({
                 this.ready = true;
 
                 const anim = from.animate([
-                    { transform: 'translate(0, 0) scale(1)', boxShadow: '0 20px 50px rgba(0, 122, 255, 0.35)' },
-                    { transform: 'translate(' + dx + 'px, ' + dy + 'px) scale(' + scale + ')', boxShadow: '0 6px 16px rgba(0, 122, 255, 0.3)' }
+                    { transform: 'translate(0, 0) scale(1)', boxShadow: '0 20px 50px rgba(106, 29, 128, 0.4)' },
+                    { transform: 'translate(' + dx + 'px, ' + dy + 'px) scale(' + scale + ')', boxShadow: '0 6px 16px rgba(106, 29, 128, 0.35)' }
                 ], { duration: 850, easing: easing, fill: 'forwards' });
 
                 anim.onfinish = done;
@@ -324,7 +328,7 @@ new Vue({
         updateThemeColorMeta(theme) {
             const meta = document.querySelector('meta[name="theme-color"]');
             if (!meta) return;
-            meta.setAttribute('content', theme === 'dark' ? '#0b0b0d' : '#f5f5f7');
+            meta.setAttribute('content', theme === 'dark' ? '#0d0b11' : '#f7f5fa');
         },
 
         applyTheme(theme, persist) {
@@ -556,16 +560,33 @@ new Vue({
             });
         },
 
+        toggleSearch() {
+            if (this.searchOpen || this.searchQuery) {
+                this.searchOpen = false;
+                this.searchQuery = '';
+                return;
+            }
+            this.focusSearch();
+        },
+
+        focusSearch() {
+            this.searchOpen = true;
+            this.$nextTick(() => {
+                if (this.$refs.search) this.$refs.search.focus();
+            });
+        },
+
         onKeydown(e) {
             if (e.key === 'Escape') {
                 if (this.showTaskModal) this.closeTaskModal();
                 else if (this.showTeamModal) this.showTeamModal = false;
                 else if (this.showMenu) this.showMenu = false;
+                else if (this.searchOpen) this.toggleSearch();
                 return;
             }
             if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
                 e.preventDefault();
-                if (this.$refs.search) this.$refs.search.focus();
+                this.focusSearch();
             }
         },
 
@@ -682,7 +703,7 @@ new Vue({
         getActivityIcon(type) {
             const icons = {
                 'created': { icon: 'plus', color: '#34c759' },
-                'status': { icon: 'swap', color: '#007aff' },
+                'status': { icon: 'swap', color: '#8b2fc9' },
                 'priority': { icon: 'flag', color: '#ff9500' },
                 'assignee': { icon: 'user', color: '#af52de' },
                 'title': { icon: 'pencil', color: '#30b0c7' },

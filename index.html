@@ -30,7 +30,7 @@
     <meta property="twitter:image" content="https://miladsoft.github.io/ToDo/assets/images/twitter-card.png">
 
     <!-- PWA Meta Tags -->
-    <meta name="theme-color" content="#f5f5f7">
+    <meta name="theme-color" content="#f7f5fa">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="TODO">
@@ -66,7 +66,7 @@
                 document.documentElement.setAttribute('data-theme', theme);
 
                 var meta = document.querySelector('meta[name="theme-color"]');
-                if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0b0d' : '#f5f5f7');
+                if (meta) meta.setAttribute('content', theme === 'dark' ? '#0d0b11' : '#f7f5fa');
             } catch (e) {}
         })();
     </script>
@@ -82,10 +82,10 @@
         :root {
             color-scheme: light;
 
-            --bg: #f5f5f7;
+            --bg: #f7f5fa;
             --surface: #ffffff;
             --elevated: #ffffff;
-            --sheet-bg: #f2f2f7;
+            --sheet-bg: #f3f0f7;
             --column-bg: rgba(120, 120, 128, 0.07);
             --seg-thumb: #ffffff;
 
@@ -97,8 +97,8 @@
             --label-3: rgba(60, 60, 67, 0.32);
             --separator: rgba(60, 60, 67, 0.12);
 
-            --accent: #007aff;
-            --accent-soft: rgba(0, 122, 255, 0.14);
+            --accent: #8b2fc9;
+            --accent-soft: rgba(139, 47, 201, 0.14);
             --red: #ff3b30;
             --red-soft: rgba(255, 59, 48, 0.12);
             --orange: #ff9500;
@@ -135,10 +135,10 @@
         html[data-theme="dark"] {
             color-scheme: dark;
 
-            --bg: #0b0b0d;
-            --surface: #1c1c1e;
-            --elevated: #2c2c2e;
-            --sheet-bg: #141416;
+            --bg: #0d0b11;
+            --surface: #1c1922;
+            --elevated: #2a2631;
+            --sheet-bg: #15121a;
             --column-bg: rgba(118, 118, 128, 0.1);
             --seg-thumb: #636366;
 
@@ -150,8 +150,8 @@
             --label-3: rgba(235, 235, 245, 0.3);
             --separator: rgba(84, 84, 88, 0.5);
 
-            --accent: #0a84ff;
-            --accent-soft: rgba(10, 132, 255, 0.2);
+            --accent: #a855f7;
+            --accent-soft: rgba(168, 85, 247, 0.2);
             --red: #ff453a;
             --red-soft: rgba(255, 69, 58, 0.16);
             --orange: #ff9f0a;
@@ -347,8 +347,8 @@
             display: grid;
             place-items: center;
             color: #fff;
-            background: linear-gradient(145deg, #3d9bff 0%, #007aff 45%, #5856d6 100%);
-            box-shadow: 0 20px 50px rgba(0, 122, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+            background: linear-gradient(145deg, #6a1d80 0%, #3b1045 55%, #291335 100%);
+            box-shadow: 0 20px 50px rgba(106, 29, 128, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.18);
             animation: splash-pop 0.9s var(--spring-bounce) both;
             will-change: transform;
         }
@@ -448,15 +448,6 @@
             min-width: 0;
         }
 
-        .eyebrow {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--label-2);
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            margin-bottom: 4px;
-        }
-
         .title {
             display: flex;
             align-items: center;
@@ -475,8 +466,8 @@
             display: grid;
             place-items: center;
             color: #fff;
-            background: linear-gradient(145deg, #3d9bff 0%, #007aff 45%, #5856d6 100%);
-            box-shadow: 0 6px 16px rgba(0, 122, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+            background: linear-gradient(145deg, #6a1d80 0%, #3b1045 55%, #291335 100%);
+            box-shadow: 0 6px 16px rgba(106, 29, 128, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.18);
             opacity: 0;
             flex: 0 0 auto;
             transition: transform 0.5s var(--spring);
@@ -526,41 +517,18 @@
             background: var(--c);
         }
 
-        .progress-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 10px;
-            max-width: 340px;
-        }
-
-        .progress {
-            flex: 1;
-            height: 5px;
-            border-radius: 5px;
-            background: var(--fill);
-            overflow: hidden;
-        }
-
-        .progress span {
-            display: block;
-            height: 100%;
-            border-radius: inherit;
-            background: var(--accent);
-            transition: width 0.9s var(--spring);
-        }
-
-        .progress-label {
-            font-size: 12px;
+        .summary .pct {
             font-weight: 600;
             color: var(--label-2);
-            white-space: nowrap;
         }
 
         .actions {
             display: flex;
             gap: 8px;
-            padding-top: 4px;
+        }
+
+        .mobile-only {
+            display: none !important;
         }
 
         .icon-btn {
@@ -585,6 +553,11 @@
 
         .icon-btn.danger {
             color: var(--red);
+        }
+
+        .icon-btn.on {
+            background: var(--accent);
+            color: #fff;
         }
 
         .icon-btn.sm {
@@ -1704,14 +1677,6 @@
                 gap: 3px 8px;
             }
 
-            .summary .opt {
-                display: none;
-            }
-
-            .progress-row {
-                max-width: none;
-            }
-
             .actions {
                 gap: 6px;
             }
@@ -1728,8 +1693,49 @@
                 padding: 6px 16px 10px;
             }
 
+            .mobile-only {
+                display: grid !important;
+            }
+
+            .desktop-only {
+                display: none !important;
+            }
+
+            /* Title + actions on one row, stats get the full width below */
+            .topbar {
+                display: grid;
+                grid-template-columns: 1fr auto;
+                align-items: center;
+                row-gap: 0;
+            }
+
+            .title-block {
+                display: contents;
+            }
+
+            .title {
+                grid-row: 1;
+                grid-column: 1;
+            }
+
+            .actions {
+                grid-row: 1;
+                grid-column: 2;
+            }
+
+            .summary {
+                grid-row: 2;
+                grid-column: 1 / -1;
+            }
+
             .search {
                 flex: none;
+                display: none;
+            }
+
+            .search.open {
+                display: flex;
+                animation: rise 0.5s var(--spring) both;
             }
 
             .kbd {
@@ -1830,10 +1836,6 @@
             .title {
                 font-size: 26px;
             }
-
-            .summary .opt {
-                display: none;
-            }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -1862,7 +1864,6 @@
         <!-- Header -->
         <header class="topbar">
             <div class="title-block">
-                <div class="eyebrow rise" style="--d: 0">{{ todayLabel }}</div>
                 <h1 class="title">
                     <span ref="appMark" class="app-mark" :class="{ landed: introDone }">
                         <a-icon name="check" :size="20" :stroke="2.8"></a-icon>
@@ -1870,24 +1871,19 @@
                     <span class="rise" style="--d: 1">TODO</span>
                 </h1>
                 <p class="summary rise" style="--d: 2" v-if="tasks.length">
-                    <span><b><n-roll :value="tasks.length"></n-roll></b> {{ tasks.length === 1 ? 'task' : 'tasks' }}</span>
-                    <i class="sep"></i>
                     <span class="st" style="--c: var(--accent)"><b><n-roll :value="stats.todo"></n-roll></b> to do</span>
                     <span class="st" style="--c: var(--orange)"><b><n-roll :value="stats.doing"></n-roll></b> in progress</span>
                     <span class="st" style="--c: var(--green)"><b><n-roll :value="stats.done"></n-roll></b> done</span>
-                    <template v-if="teamMembers.length">
-                        <i class="sep opt"></i>
-                        <span class="opt"><b><n-roll :value="teamMembers.length"></n-roll></b> {{ teamMembers.length === 1 ? 'member' : 'members' }}</span>
-                    </template>
+                    <i class="sep"></i>
+                    <span class="pct"><n-roll :value="completion"></n-roll>%</span>
                 </p>
                 <p class="summary rise" style="--d: 2" v-else>No tasks yet — add your first one below.</p>
-                <div class="progress-row rise" style="--d: 3" v-if="tasks.length">
-                    <div class="progress"><span :style="{ width: (ready ? completion : 0) + '%' }"></span></div>
-                    <span class="progress-label"><n-roll :value="completion"></n-roll>% complete</span>
-                </div>
             </div>
 
             <div class="actions rise" style="--d: 1">
+                <button class="icon-btn ah mobile-only" :class="{ on: searchOpen || searchQuery }" @click="toggleSearch" title="Search" aria-label="Search tasks">
+                    <a-icon name="search"></a-icon>
+                </button>
                 <button class="icon-btn ah" @click="toggleTheme" :title="theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'" aria-label="Toggle theme">
                     <transition name="swap" mode="out-in">
                         <span class="swap-wrap" :key="theme">
@@ -1895,7 +1891,7 @@
                         </span>
                     </transition>
                 </button>
-                <button class="icon-btn ah" @click="showTeamModal = true" title="Manage team" aria-label="Manage team">
+                <button class="icon-btn ah desktop-only" @click="showTeamModal = true" title="Manage team" aria-label="Manage team">
                     <a-icon name="users"></a-icon>
                 </button>
                 <div class="menu-wrap">
@@ -1926,8 +1922,8 @@
         </header>
 
         <!-- Search + member filter -->
-        <div class="controls rise" style="--d: 3">
-            <label class="search">
+        <div class="controls rise" style="--d: 3" v-if="teamMembers.length || searchOpen || searchQuery || !isPhone">
+            <label class="search" :class="{ open: searchOpen || searchQuery }">
                 <a-icon name="search" :size="16"></a-icon>
                 <input ref="search" type="search" v-model="searchQuery" placeholder="Search tasks" aria-label="Search tasks">
                 <transition name="fade">
