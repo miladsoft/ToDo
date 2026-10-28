@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
     <!-- SEO Meta Tags -->
     <title>TODO</title>
     <meta name="description" content="TODO is a powerful team collaboration tool with Kanban board, task assignment, activity tracking, and drag & drop. Manage your team's tasks efficiently with detailed logging and member management.">
     <meta name="keywords" content="todo, task management, kanban board, team collaboration, project management, task tracking, drag and drop, activity log, team tasks">
     <meta name="author" content="TODO Team">
     <meta name="robots" content="index, follow">
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://miladsoft.github.io/ToDo/">
@@ -21,1354 +21,2166 @@
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="TODO - Team Task Manager">
     <meta property="og:site_name" content="TODO">
-    
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://miladsoft.github.io/ToDo/">
     <meta property="twitter:title" content="TODO - Professional Team Task Management">
     <meta property="twitter:description" content="Powerful team collaboration tool with Kanban board, task assignment, and complete activity tracking.">
     <meta property="twitter:image" content="https://miladsoft.github.io/ToDo/assets/images/twitter-card.png">
-    
+
     <!-- PWA Meta Tags -->
-    <meta name="theme-color" content="#f5f5f5">
+    <meta name="theme-color" content="#f5f5f7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="TODO">
     <meta name="mobile-web-app-capable" content="yes">
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="48x48" href="assets/icons/favicon-48x48.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
-    
+
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
-    
+
     <!-- Canonical URL -->
     <link rel="canonical" href="https://miladsoft.github.io/ToDo/">
-    
+
     <!-- Preconnect for performance -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap">
 
-        <!-- Prevent theme flash: apply saved/system theme before paint -->
-        <script>
-            (function () {
-                try {
-                    var key = 'todo-theme';
-                    var saved = localStorage.getItem(key);
-                    var mq = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
-                    var theme = saved || (mq && mq.matches ? 'dark' : 'light');
-                    document.documentElement.setAttribute('data-theme', theme);
+    <!-- Prevent theme flash: apply saved/system theme before paint -->
+    <script>
+        (function () {
+            try {
+                var key = 'todo-theme';
+                var saved = localStorage.getItem(key);
+                var mq = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+                var theme = saved || (mq && mq.matches ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
 
-                    var meta = document.querySelector('meta[name="theme-color"]');
-                    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0f1115' : '#f5f5f5');
-                } catch (e) {}
-            })();
-        </script>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+                var meta = document.querySelector('meta[name="theme-color"]');
+                if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0b0d' : '#f5f5f7');
+            } catch (e) {}
+        })();
+    </script>
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         :root {
             color-scheme: light;
 
-            --bg: #f5f5f5;
-            --text: #333;
-            --text-strong: #222;
-            --text-muted: #666;
-            --text-subtle: #999;
-
+            --bg: #f5f5f7;
             --surface: #ffffff;
-            --surface-2: #fafafa;
-            --surface-3: #f9f9f9;
-            --surface-hover: #f9f9f9;
+            --elevated: #ffffff;
+            --sheet-bg: #f2f2f7;
+            --column-bg: rgba(120, 120, 128, 0.07);
+            --seg-thumb: #ffffff;
 
-            --border: #e0e0e0;
-            --border-2: #e8e8e8;
-            --border-3: #ddd;
+            --fill: rgba(120, 120, 128, 0.12);
+            --fill-hover: rgba(120, 120, 128, 0.2);
 
-            --shadow: 0 2px 8px rgba(0,0,0,0.08);
+            --label: #1d1d1f;
+            --label-2: rgba(60, 60, 67, 0.64);
+            --label-3: rgba(60, 60, 67, 0.32);
+            --separator: rgba(60, 60, 67, 0.12);
 
-            --accent: #222;
-            --accent-hover: #000;
-            --accent-contrast: #fff;
+            --accent: #007aff;
+            --accent-soft: rgba(0, 122, 255, 0.14);
+            --red: #ff3b30;
+            --red-soft: rgba(255, 59, 48, 0.12);
+            --orange: #ff9500;
+            --green: #34c759;
+            --gray: #8e8e93;
+            --gray-soft: rgba(142, 142, 147, 0.16);
 
-            --chip-bg: #f5f5f5;
-            --chip-hover: #ebebeb;
+            --glass: rgba(255, 255, 255, 0.72);
+            --menu-bg: rgba(255, 255, 255, 0.82);
+            --toast-bg: rgba(29, 29, 31, 0.9);
+            --toast-fg: #fff;
 
-            --overlay: rgba(0,0,0,0.5);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 30px 80px rgba(0, 0, 0, 0.18), 0 8px 24px rgba(0, 0, 0, 0.08);
+            --overlay: rgba(0, 0, 0, 0.3);
 
-            --scroll-track: #f1f1f1;
-            --scroll-thumb: #ccc;
-            --scroll-thumb-hover: #999;
+            --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Geist", "Segoe UI", Roboto, sans-serif;
+            --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Geist", "Segoe UI", Roboto, sans-serif;
 
-            --input-bg: #fff;
+            /* Spring curves (Animate UI-style motion) with cubic-bezier fallback */
+            --spring: cubic-bezier(0.34, 1.3, 0.64, 1);
+            --spring-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @supports (transition-timing-function: linear(0, 1)) {
+            :root {
+                --spring: linear(0, 0.006, 0.025 2.8%, 0.101 6.1%, 0.539 18.9%, 0.721 25.3%, 0.849 31.5%, 0.937 38.1%, 0.968 41.8%, 0.991 45.7%, 1.006 50.1%, 1.015 55%, 1.017 63.9%, 1.001 85.1%, 1);
+                --spring-bounce: linear(0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938 16.7%, 1.017 19.4%, 1.077, 1.121, 1.149 24.3%, 1.163 27%, 1.154 29.9%, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 0.991 47.2%, 0.977 51%, 0.974 53.8%, 0.975 57.1%, 0.997 69.8%, 1.003 76.9%, 1);
+            }
         }
 
         html[data-theme="dark"] {
             color-scheme: dark;
 
-            --bg: #0f1115;
-            --text: #e7e7e7;
-            --text-strong: #f2f2f2;
-            --text-muted: #b9bcc6;
-            --text-subtle: #8d91a0;
+            --bg: #0b0b0d;
+            --surface: #1c1c1e;
+            --elevated: #2c2c2e;
+            --sheet-bg: #141416;
+            --column-bg: rgba(118, 118, 128, 0.1);
+            --seg-thumb: #636366;
 
-            --surface: #171a21;
-            --surface-2: #1b1f28;
-            --surface-3: #171a21;
-            --surface-hover: #202633;
+            --fill: rgba(118, 118, 128, 0.24);
+            --fill-hover: rgba(118, 118, 128, 0.34);
 
-            --border: #2a3140;
-            --border-2: #2a3140;
-            --border-3: #3a4356;
+            --label: #f5f5f7;
+            --label-2: rgba(235, 235, 245, 0.6);
+            --label-3: rgba(235, 235, 245, 0.3);
+            --separator: rgba(84, 84, 88, 0.5);
 
-            --shadow: 0 2px 10px rgba(0,0,0,0.45);
+            --accent: #0a84ff;
+            --accent-soft: rgba(10, 132, 255, 0.2);
+            --red: #ff453a;
+            --red-soft: rgba(255, 69, 58, 0.16);
+            --orange: #ff9f0a;
+            --green: #30d158;
+            --gray: #98989d;
+            --gray-soft: rgba(152, 152, 157, 0.18);
 
-            --accent: #f2f2f2;
-            --accent-hover: #fff;
-            --accent-contrast: #0f1115;
+            --glass: rgba(22, 22, 24, 0.72);
+            --menu-bg: rgba(44, 44, 46, 0.82);
+            --toast-bg: rgba(242, 242, 247, 0.94);
+            --toast-fg: #1d1d1f;
 
-            --chip-bg: #1b1f28;
-            --chip-hover: #202633;
-
-            --overlay: rgba(0,0,0,0.6);
-
-            --scroll-track: #12151c;
-            --scroll-thumb: #2a3140;
-            --scroll-thumb-hover: #3a4356;
-
-            --input-bg: #171a21;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+            --shadow-lg: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.04);
+            --overlay: rgba(0, 0, 0, 0.55);
         }
 
-        /* Prevent mustache flash before Vue is ready */
         [v-cloak] {
             display: none !important;
         }
 
-        .app-loader {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 30px 20px;
-            color: var(--text-muted);
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            overscroll-behavior: none;
         }
 
-        .app-loader-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 18px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .app-loader-spinner {
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            border: 2px solid var(--border);
-            border-top-color: var(--scroll-thumb-hover);
-            animation: spin 0.9s linear infinite;
-            flex: 0 0 auto;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: var(--font);
+            font-size: 15px;
+            line-height: 1.4;
             background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 30px 20px;
-        }
-        
-        /* Header */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        .header-left h1 {
-            font-size: 28px;
-            font-weight: 600;
-            color: var(--text-strong);
-            margin-bottom: 5px;
-        }
-        
-        .header-left p {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-        
-        .header-right {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .btn {
-            padding: 10px 20px;
-            border: 1px solid var(--border-3);
-            background: var(--surface);
-            border-radius: 6px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text);
-        }
-        
-        .btn:hover {
-            background: var(--surface-hover);
-            border-color: var(--scroll-thumb-hover);
-        }
-        
-        .btn.primary {
-            background: var(--accent);
-            color: var(--accent-contrast);
-            border-color: var(--accent);
-        }
-        
-        .btn.primary:hover {
-            background: var(--accent-hover);
+            color: var(--label);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        .btn.block {
-            width: 100%;
-            justify-content: center;
+        button, input, select, textarea {
+            font: inherit;
+            color: inherit;
         }
-        
-        /* Stats */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-        
-        .stat-card {
-            background: var(--surface);
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            text-align: center;
-        }
-        
-        .stat-card .number {
-            font-size: 32px;
-            font-weight: 600;
-            color: var(--text-strong);
-            display: block;
-            margin-bottom: 5px;
-        }
-        
-        .stat-card .label {
-            font-size: 13px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        /* Team Section */
-        .team-section {
-            background: var(--surface);
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            margin-bottom: 25px;
-        }
-        
-        .team-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .team-header h3 {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-strong);
-        }
-        
-        .team-members {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        
-        .member-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            background: var(--chip-bg);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            font-size: 13px;
+
+        button {
             cursor: pointer;
-            transition: all 0.2s;
         }
-        
-        .member-chip:hover {
-            background: var(--chip-hover);
+
+        :focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
         }
-        
-        .member-chip.active {
-            background: var(--accent);
-            color: var(--accent-contrast);
-            border-color: var(--accent);
+
+        /* ========== Animated icons ========== */
+        .ai {
+            display: inline-block;
+            flex: 0 0 auto;
+            overflow: visible;
+            vertical-align: middle;
         }
-        
-        .member-avatar {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 11px;
-            color: white;
+
+        .ai g, .ai path, .ai circle {
+            transform-box: fill-box;
+            transform-origin: center;
         }
-        
-        /* Toolbar */
-        .toolbar {
-            background: var(--surface);
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            margin-bottom: 25px;
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            align-items: center;
+
+        .ai .hand {
+            transform-box: view-box;
+            transform-origin: 12px 12px;
         }
-        
-        .toolbar input[type="text"] {
-            flex: 1;
-            min-width: 200px;
-            padding: 10px 15px;
-            border: 1px solid var(--border-3);
-            border-radius: 6px;
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.2s;
-            background: var(--input-bg);
-            color: var(--text);
+
+        .ai .lid {
+            transform-origin: 15% 100%;
         }
-        
-        .toolbar input[type="text"]:focus {
-            border-color: var(--scroll-thumb-hover);
+
+        .ai .cloth {
+            transform-origin: left center;
         }
-        
-        /* Kanban Board */
-        .kanban-board {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 20px;
+
+        .ai .draw {
+            stroke-dasharray: 1;
+            stroke-dashoffset: 0;
         }
-        
-        .column {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 20px;
-            min-height: 500px;
+
+        @keyframes ai-rays { 0% { transform: rotate(0) scale(1); } 50% { transform: rotate(45deg) scale(0.8); } 100% { transform: rotate(90deg) scale(1); } }
+        @keyframes ai-wiggle { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(-16deg); } 40% { transform: rotate(12deg); } 60% { transform: rotate(-7deg); } 80% { transform: rotate(3deg); } }
+        @keyframes ai-twinkle { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0; transform: scale(0.3); } }
+        @keyframes ai-dot { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-4px); } }
+        @keyframes ai-up { 0%, 100% { transform: translateY(0); } 45% { transform: translateY(-4px); } }
+        @keyframes ai-down { 0%, 100% { transform: translateY(0); } 45% { transform: translateY(4px); } }
+        @keyframes ai-lid { 0%, 100% { transform: none; } 40% { transform: translateY(-2.5px) rotate(-14deg); } }
+        @keyframes ai-wave { 0%, 100% { transform: none; } 30% { transform: skewY(-8deg) scaleX(0.92); } 65% { transform: skewY(5deg) scaleX(0.97); } }
+        @keyframes ai-pop { 0% { transform: scale(1) rotate(0); } 50% { transform: scale(1.3) rotate(90deg); } 100% { transform: scale(1) rotate(180deg); } }
+        @keyframes ai-turn { to { transform: rotate(90deg); } }
+        @keyframes ai-spin { to { transform: rotate(360deg); } }
+        @keyframes ai-rewind { to { transform: rotate(-360deg); } }
+        @keyframes ai-search { 0%, 100% { transform: translate(0, 0); } 25% { transform: translate(-2px, -2px); } 50% { transform: translate(2px, -1px); } 75% { transform: translate(0, 2px); } }
+        @keyframes ai-left { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-2px); } }
+        @keyframes ai-right { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(2px); } }
+        @keyframes ai-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+        @keyframes ai-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        @keyframes ai-flip { 0%, 40% { transform: rotate(0); } 50%, 90% { transform: rotate(180deg); } 100% { transform: rotate(360deg); } }
+        @keyframes ai-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.82); opacity: 0.75; } }
+
+        .ah:hover .ai-sun .rays, .ah:focus-visible .ai-sun .rays { animation: ai-rays 0.7s var(--spring); }
+        .ah:hover .ai-moon, .ah:focus-visible .ai-moon { animation: ai-wiggle 0.8s ease; }
+        .ah:hover .ai-moon .star { animation: ai-twinkle 0.8s ease; }
+        .ah:hover .ai-users .front { animation: ai-left 0.6s var(--spring); }
+        .ah:hover .ai-users .back { animation: ai-right 0.6s var(--spring); }
+        .ah:hover .ai-more circle, .ah:focus-visible .ai-more circle { animation: ai-dot 0.5s ease; }
+        .ah:hover .ai-more .d2 { animation-delay: 0.08s; }
+        .ah:hover .ai-more .d3 { animation-delay: 0.16s; }
+        .ah:hover .ai-search .lens, .search:focus-within .ai-search .lens { animation: ai-search 0.8s ease; }
+        .ah:hover .ai-trash .lid { animation: ai-lid 0.6s var(--spring); }
+        .ah:hover .ai-flag .cloth { animation: ai-wave 0.8s ease; }
+        .ah:hover .ai-arrow-up .arrow { animation: ai-up 0.5s var(--spring); }
+        .ah:hover .ai-arrow-down .arrow, .ah:hover .ai-download .arrow { animation: ai-down 0.6s var(--spring); }
+        .ah:hover .ai-upload .arrow { animation: ai-up 0.6s var(--spring); }
+        .ah:hover .ai-history .spin { animation: ai-rewind 0.9s var(--spring); }
+        .ah:hover .ai-history .hand, .ah:hover .ai-clock .hand { animation: ai-spin 0.9s var(--ease-out); }
+        .ah:hover .ai-user-plus .pop { animation: ai-pop 0.6s var(--spring); }
+        .ah:hover .ai-plus { animation: ai-pop 0.6s var(--spring); }
+        .ah:hover .ai-x { animation: ai-turn 0.4s var(--spring); }
+        .ah:hover .ai-chevron { animation: ai-down 0.5s var(--spring); }
+        .ah:hover .ai-circle-check .draw { animation: ai-draw 0.5s ease; }
+
+        .ai-loop { animation: ai-float 3.2s ease-in-out infinite; }
+        .ai-loop.ai-hourglass { animation: ai-flip 3.2s var(--spring) infinite; }
+        .ai-loop.ai-circle-check .draw { animation: ai-draw 1.2s ease 0.3s both; }
+
+        /* ========== Sliding number ========== */
+        .roll {
+            white-space: nowrap;
+            font-variant-numeric: tabular-nums;
         }
-        
-        .column-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 15px;
-            margin-bottom: 15px;
-            border-bottom: 2px solid var(--border);
-        }
-        
-        .column-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-strong);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .column-count {
-            background: var(--chip-bg);
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-        
-        /* Task Card */
-        .task-card {
-            background: var(--surface-2);
-            border: 1px solid var(--border-2);
-            border-radius: 6px;
-            padding: 15px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
+
+        /* A hidden copy of the digit keeps width + text baseline; the reel slides over it, clipped (clip-path, not overflow, so the baseline survives). */
+        .roll-d {
             position: relative;
+            display: inline-block;
+            line-height: 1.2em;
+            clip-path: inset(0 -4px);
         }
-        
-        .task-card:hover {
-            border-color: var(--scroll-thumb);
-            box-shadow: var(--shadow);
-            transform: translateY(-2px);
+
+        .roll-d.is-num .roll-ghost {
+            visibility: hidden;
         }
-        
-        .task-card.priority-high {
-            border-left: 3px solid #d32f2f;
-        }
-        
-        .task-card.priority-normal {
-            border-left: 3px solid #1976d2;
-        }
-        
-        .task-card.priority-low {
-            border-left: 3px solid #999;
-        }
-        
-        .task-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        
-        .task-title {
-            flex: 1;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text);
-            line-height: 1.5;
-        }
-        
-        .task-priority {
-            width: 28px;
-            height: 28px;
-            border: 1px solid var(--border-3);
-            background: var(--surface);
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            flex-shrink: 0;
-        }
-        
-        .task-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 10px;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-        
-        .task-meta-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .task-assignee {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 8px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-        }
-        
-        .assignee-avatar {
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 9px;
-            color: white;
-        }
-        
-        /* Modal */
-        .modal-overlay {
-            display: none;
-            position: fixed;
+
+        .roll-reel {
+            position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: var(--overlay);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        
-        .modal-overlay.active {
-            display: flex;
-        }
-        
-        .modal {
-            background: var(--surface);
-            border-radius: 8px;
-            max-width: 800px;
-            width: 100%;
-            max-height: 90vh;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
+            text-align: center;
+            transition: transform 0.7s var(--spring);
         }
-        
-        .modal-header {
+
+        .roll-reel > span {
+            height: 1.2em;
+            line-height: 1.2em;
+        }
+
+        /* ========== Splash ========== */
+        .splash {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .splash-bg {
+            position: absolute;
+            inset: 0;
+            background: var(--bg);
+            transition: opacity 0.6s var(--ease-out);
+        }
+
+        .splash-center {
+            position: absolute;
+            inset: 0;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .modal-header h2 {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--text-strong);
-        }
-        
-        .modal-close {
-            width: 32px;
-            height: 32px;
-            border: none;
-            background: var(--chip-bg);
-            border-radius: 4px;
-            cursor: pointer;
-            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s;
-            color: var(--text);
-        }
-        
-        .modal-close:hover {
-            background: var(--chip-hover);
-        }
-        
-        .modal-body {
-            padding: 20px;
-            overflow-y: auto;
-            flex: 1;
-        }
-        
-        .modal-section {
-            margin-bottom: 25px;
-        }
-        
-        .modal-section h3 {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-strong);
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            gap: 18px;
         }
 
-        .field-input {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid var(--border-3);
-            border-radius: 6px;
-            font-size: 14px;
-            font-family: inherit;
-            outline: none;
-            background: var(--input-bg);
-            color: var(--text);
-        }
-
-        .field-input.lg {
-            font-size: 16px;
-            padding: 10px 12px;
-        }
-
-        .field-input:focus {
-            border-color: var(--scroll-thumb-hover);
-        }
-        
-        .modal-section textarea {
-            width: 100%;
-            min-height: 100px;
-            padding: 12px;
-            border: 1px solid var(--border-3);
-            border-radius: 6px;
-            font-size: 14px;
-            font-family: inherit;
-            resize: vertical;
-            outline: none;
-            background: var(--input-bg);
-            color: var(--text);
-        }
-        
-        .modal-section textarea:focus {
-            border-color: var(--scroll-thumb-hover);
-        }
-        
-        .task-details-grid {
+        .splash-mark {
+            width: 88px;
+            height: 88px;
+            border-radius: 24px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            place-items: center;
+            color: #fff;
+            background: linear-gradient(145deg, #3d9bff 0%, #007aff 45%, #5856d6 100%);
+            box-shadow: 0 20px 50px rgba(0, 122, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+            animation: splash-pop 0.9s var(--spring-bounce) both;
+            will-change: transform;
         }
-        
-        .detail-item {
-            background: var(--surface-3);
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid var(--border-2);
+
+        .splash-mark svg .draw {
+            stroke-dasharray: 1;
+            animation: ai-draw 0.6s var(--ease-out) 0.35s both;
         }
-        
-        .detail-label {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 5px;
+
+        .splash-name {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.24em;
+            text-indent: 0.24em;
+            color: var(--label);
+            animation: splash-rise 0.7s var(--spring) 0.25s both;
+            transition: opacity 0.3s ease, transform 0.4s var(--ease-out);
+        }
+
+        .splash-bar {
+            width: 64px;
+            height: 3px;
+            border-radius: 3px;
+            background: var(--fill);
+            overflow: hidden;
+            animation: splash-rise 0.6s var(--spring) 0.4s both;
+            transition: opacity 0.3s ease;
+        }
+
+        .splash-bar::after {
+            content: '';
+            display: block;
+            width: 40%;
+            height: 100%;
+            border-radius: inherit;
+            background: var(--accent);
+            animation: splash-load 1s ease-in-out infinite;
+        }
+
+        .splash.leaving .splash-bg { opacity: 0; }
+        .splash.leaving .splash-name { opacity: 0; transform: translateY(8px); }
+        .splash.leaving .splash-bar { opacity: 0; }
+        .splash.fade { opacity: 0; transition: opacity 0.35s ease; }
+
+        @keyframes splash-pop {
+            from { transform: scale(0.5) rotate(-12deg); opacity: 0; }
+            to { transform: scale(1) rotate(0); opacity: 1; }
+        }
+
+        @keyframes splash-rise {
+            from { transform: translateY(14px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes splash-load {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(250%); }
+        }
+
+        /* ========== App shell ========== */
+        .app {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg);
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left);
+        }
+
+        .rise {
+            opacity: 0;
+        }
+
+        .app.ready .rise {
+            animation: rise 0.8s var(--spring) both;
+            animation-delay: calc(var(--d, 0) * 70ms);
+        }
+
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(16px) scale(0.985); }
+            to { opacity: 1; transform: none; }
+        }
+
+        /* Header */
+        .topbar {
+            position: relative;
+            z-index: 30;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 22px 24px 10px;
+        }
+
+        .title-block {
+            min-width: 0;
+        }
+
+        .eyebrow {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--label-2);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .detail-value {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-strong);
-        }
-        
-        .detail-value select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid var(--border-3);
-            border-radius: 4px;
-            font-size: 14px;
-            outline: none;
-            background: var(--input-bg);
-            color: var(--text);
-        }
-        
-        /* Activity Log */
-        .activity-log {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        
-        .activity-item {
-            display: flex;
-            gap: 12px;
-            padding: 12px;
-            background: var(--surface-3);
-            border-radius: 6px;
-            margin-bottom: 10px;
-            border: 1px solid var(--border-2);
-        }
-        
-        .activity-icon {
-            width: 32px;
-            height: 32px;
-            background: #222;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            flex-shrink: 0;
-        }
-        
-        .activity-content {
-            flex: 1;
-        }
-        
-        .activity-text {
-            font-size: 14px;
-            color: var(--text);
+            letter-spacing: 0.06em;
             margin-bottom: 4px;
         }
-        
-        .activity-time {
-            font-size: 12px;
-            color: var(--text-subtle);
-        }
-        
-        /* Team Management Modal */
-        .member-form {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .member-form input {
-            flex: 1;
-            padding: 10px 15px;
-            border: 1px solid var(--border-3);
-            border-radius: 6px;
-            font-size: 14px;
-            outline: none;
-            background: var(--input-bg);
-            color: var(--text);
-        }
-        
-        .member-form input:focus {
-            border-color: var(--scroll-thumb-hover);
-        }
-        
-        .members-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .member-item {
+
+        .title {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 12px;
-            background: var(--surface-3);
-            border: 1px solid var(--border-2);
-            border-radius: 6px;
+            font-family: var(--font-display);
+            font-size: 34px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
         }
-        
-        .member-item-avatar {
-            width: 40px;
-            height: 40px;
+
+        .app-mark {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            background: linear-gradient(145deg, #3d9bff 0%, #007aff 45%, #5856d6 100%);
+            box-shadow: 0 6px 16px rgba(0, 122, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+            opacity: 0;
+            flex: 0 0 auto;
+            transition: transform 0.5s var(--spring);
+        }
+
+        .app-mark.landed {
+            opacity: 1;
+        }
+
+        .app-mark:hover {
+            transform: rotate(-8deg) scale(1.06);
+        }
+
+        .summary {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 4px 10px;
+            margin-top: 8px;
+            font-size: 14px;
+            color: var(--label-2);
+        }
+
+        .summary b {
+            color: var(--label);
+            font-weight: 600;
+        }
+
+        .summary .sep {
+            width: 3px;
+            height: 3px;
             border-radius: 50%;
+            background: var(--label-3);
+        }
+
+        .summary .st {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .summary .st::before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--c);
+        }
+
+        .progress-row {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 16px;
-            color: white;
+            gap: 10px;
+            margin-top: 10px;
+            max-width: 340px;
         }
-        
-        .member-item-info {
+
+        .progress {
             flex: 1;
+            height: 5px;
+            border-radius: 5px;
+            background: var(--fill);
+            overflow: hidden;
         }
-        
-        .member-item-name {
-            font-weight: 500;
-            color: var(--text-strong);
-            margin-bottom: 2px;
+
+        .progress span {
+            display: block;
+            height: 100%;
+            border-radius: inherit;
+            background: var(--accent);
+            transition: width 0.9s var(--spring);
         }
-        
-        .member-item-role {
+
+        .progress-label {
             font-size: 12px;
-            color: var(--text-muted);
+            font-weight: 600;
+            color: var(--label-2);
+            white-space: nowrap;
         }
-        
-        .member-item-actions {
+
+        .actions {
             display: flex;
             gap: 8px;
+            padding-top: 4px;
         }
-        
+
         .icon-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: none;
+            background: var(--fill);
+            color: var(--accent);
+            display: grid;
+            place-items: center;
+            transition: background 0.2s, transform 0.4s var(--spring-bounce);
+        }
+
+        .icon-btn:hover {
+            background: var(--fill-hover);
+        }
+
+        .icon-btn:active {
+            transform: scale(0.88);
+        }
+
+        .icon-btn.danger {
+            color: var(--red);
+        }
+
+        .icon-btn.sm {
             width: 32px;
             height: 32px;
-            border: 1px solid var(--border-3);
+        }
+
+        .swap-enter-active, .swap-leave-active {
+            transition: transform 0.35s var(--spring), opacity 0.2s ease;
+        }
+
+        .swap-enter {
+            transform: rotate(-90deg) scale(0.4);
+            opacity: 0;
+        }
+
+        .swap-leave-to {
+            transform: rotate(90deg) scale(0.4);
+            opacity: 0;
+        }
+
+        .swap-wrap {
+            display: grid;
+            place-items: center;
+        }
+
+        /* More menu */
+        .menu-wrap {
+            position: relative;
+        }
+
+        .menu-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 40;
+        }
+
+        .menu {
+            position: absolute;
+            right: 0;
+            top: 46px;
+            z-index: 50;
+            min-width: 230px;
+            padding: 6px;
+            border-radius: 14px;
+            background: var(--menu-bg);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            backdrop-filter: blur(30px) saturate(180%);
+            border: 1px solid var(--separator);
+            box-shadow: var(--shadow-lg);
+            transform-origin: top right;
+        }
+
+        .menu button {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border: none;
+            background: none;
+            border-radius: 9px;
+            font-size: 15px;
+            text-align: left;
+            transition: background 0.15s;
+        }
+
+        .menu button:hover:not(:disabled) {
+            background: var(--fill);
+        }
+
+        .menu button .ai {
+            color: var(--accent);
+        }
+
+        .menu button.danger, .menu button.danger .ai {
+            color: var(--red);
+        }
+
+        .menu button:disabled {
+            opacity: 0.4;
+            cursor: default;
+        }
+
+        .menu-hint {
+            margin-left: auto;
+            font-size: 12px;
+            color: var(--label-3);
+        }
+
+        .menu hr {
+            border: none;
+            height: 1px;
+            background: var(--separator);
+            margin: 4px 10px;
+        }
+
+        .pop-enter-active { transition: transform 0.4s var(--spring), opacity 0.2s ease; }
+        .pop-leave-active { transition: transform 0.15s ease, opacity 0.15s ease; }
+        .pop-enter, .pop-leave-to { transform: scale(0.85) translateY(-6px); opacity: 0; }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 6px 24px 14px;
+        }
+
+        .search {
+            position: relative;
+            flex: 0 1 320px;
+            display: flex;
+            align-items: center;
+        }
+
+        .search > .ai {
+            position: absolute;
+            left: 11px;
+            color: var(--label-2);
+            pointer-events: none;
+        }
+
+        .search input {
+            width: 100%;
+            height: 38px;
+            padding: 0 34px;
+            border: none;
+            border-radius: 11px;
+            background: var(--fill);
+            font-size: 15px;
+            outline: none;
+            transition: box-shadow 0.25s, background 0.25s;
+        }
+
+        .search input::placeholder {
+            color: var(--label-2);
+        }
+
+        .search input::-webkit-search-cancel-button {
+            display: none;
+        }
+
+        .search input:focus {
             background: var(--surface);
-            border-radius: 4px;
-            cursor: pointer;
+            box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow-sm);
+        }
+
+        .search-clear {
+            position: absolute;
+            right: 7px;
+            width: 24px;
+            height: 24px;
+            border: none;
+            border-radius: 50%;
+            background: var(--label-3);
+            color: var(--surface);
+            display: grid;
+            place-items: center;
+        }
+
+        .kbd {
+            position: absolute;
+            right: 9px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--label-3);
+            border: 1px solid var(--separator);
+            border-radius: 5px;
+            padding: 1px 5px;
+            pointer-events: none;
+        }
+
+        .chips {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 24px), transparent);
+            mask-image: linear-gradient(90deg, #000 calc(100% - 24px), transparent);
+            padding: 2px 24px 2px 2px;
+        }
+
+        .chips::-webkit-scrollbar {
+            display: none;
+        }
+
+        .chip {
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            height: 34px;
+            padding: 0 14px 0 5px;
+            border: none;
+            border-radius: 17px;
+            background: var(--fill);
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: background 0.25s, color 0.25s, transform 0.4s var(--spring-bounce);
+        }
+
+        .chip.plain {
+            padding: 0 14px;
+        }
+
+        .chip:hover {
+            background: var(--fill-hover);
+        }
+
+        .chip:active {
+            transform: scale(0.94);
+        }
+
+        .chip.active {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            flex: 0 0 auto;
+        }
+
+        .avatar.xs {
+            width: 18px;
+            height: 18px;
+            font-size: 8px;
+        }
+
+        .avatar.lg {
+            width: 38px;
+            height: 38px;
+            font-size: 14px;
+        }
+
+        /* Animated tabs (mobile) */
+        .segmented {
+            position: relative;
+            display: none;
+            margin: 0 16px 10px;
+            padding: 2px;
+            border-radius: 10px;
+            background: var(--fill);
+        }
+
+        .segmented-thumb {
+            position: absolute;
+            top: 2px;
+            bottom: 2px;
+            left: 2px;
+            width: calc((100% - 4px) / 3);
+            border-radius: 8px;
+            background: var(--seg-thumb);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12), 0 3px 1px rgba(0, 0, 0, 0.04);
+            transition: transform 0.5s var(--spring);
+        }
+
+        .segmented button {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            height: 32px;
+            border: none;
+            background: none;
+            font-size: 13px;
+            font-weight: 600;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s;
-            color: var(--text);
+            gap: 6px;
         }
-        
-        .icon-btn:hover {
-            background: var(--surface-hover);
-            border-color: var(--scroll-thumb-hover);
+
+        .seg-count {
+            font-size: 11px;
+            color: var(--label-2);
         }
-        
-        .icon-btn.danger {
-            color: #d32f2f;
+
+        /* Board */
+        .board {
+            flex: 1;
+            min-height: 0;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            padding: 0 24px 16px;
         }
-        
-        .icon-btn.danger:hover {
-            background: #d32f2f;
-            color: white;
-            border-color: #d32f2f;
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            border-radius: 20px;
+            background: var(--column-bg);
+            transition: background 0.25s, box-shadow 0.25s;
         }
-        
-        /* Empty State */
-        .empty-state {
+
+        .column.drag-over {
+            background: var(--accent-soft);
+            box-shadow: inset 0 0 0 2px var(--accent);
+        }
+
+        .column-head {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 16px 18px 10px;
+        }
+
+        .column-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 18%, transparent);
+            background: currentColor;
+        }
+
+        .column-dot.pulse {
+            animation: ai-pulse 1.8s ease-in-out infinite;
+        }
+
+        .column-title {
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .column-count {
+            margin-left: auto;
+            min-width: 26px;
+            padding: 1px 8px;
+            border-radius: 10px;
+            background: var(--fill);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--label-2);
             text-align: center;
-            padding: 40px 20px;
-            color: var(--text-subtle);
         }
-        
-        .empty-state i {
-            font-size: 48px;
-            margin-bottom: 15px;
-            opacity: 0.3;
+
+        .column-body {
+            position: relative;
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            padding: 2px 10px 14px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--label-3) transparent;
         }
-        
-        .empty-state p {
+
+        .card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* Task card */
+        .card {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 13px 14px;
+            border-radius: 15px;
+            background: var(--surface);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+            transition: transform 0.45s var(--spring), box-shadow 0.25s, opacity 0.25s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card:active {
+            transform: scale(0.98);
+        }
+
+        .card.dragging {
+            opacity: 0.35;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 14px;
+            bottom: 14px;
+            width: 3px;
+            border-radius: 0 3px 3px 0;
+            background: var(--p, transparent);
+        }
+
+        .card.p-high { --p: var(--red); }
+        .card.p-low { --p: var(--gray-soft); }
+
+        .check {
+            position: relative;
+            flex: 0 0 auto;
+            width: 23px;
+            height: 23px;
+            border-radius: 50%;
+            border: 1.75px solid var(--label-3);
+            background: none;
+            display: grid;
+            place-items: center;
+            color: var(--green);
+            transition: border-color 0.2s, background 0.3s, transform 0.45s var(--spring-bounce);
+        }
+
+        .check .ai {
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .check:hover {
+            border-color: var(--green);
+        }
+
+        .check:hover .ai {
+            opacity: 0.5;
+        }
+
+        .check:active {
+            transform: scale(0.82);
+        }
+
+        .check.doing {
+            border-color: var(--orange);
+            padding: 2.5px;
+            background: conic-gradient(var(--orange) 0 180deg, transparent 180deg) content-box;
+        }
+
+        .check.doing .ai {
+            display: none;
+        }
+
+        .check.on {
+            border-color: var(--green);
+            background: var(--green);
+            color: #fff;
+        }
+
+        .check.on .ai {
+            opacity: 1;
+        }
+
+        .check.burst .draw {
+            animation: ai-draw 0.4s var(--ease-out) both;
+        }
+
+        .check.burst::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            border: 2px solid var(--green);
+            animation: burst 0.6s var(--ease-out) forwards;
+        }
+
+        @keyframes burst {
+            from { transform: scale(1); opacity: 0.8; }
+            to { transform: scale(2); opacity: 0; }
+        }
+
+        .card-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1.35;
+            overflow-wrap: anywhere;
+            transition: color 0.3s;
+        }
+
+        .card.is-done .card-title {
+            color: var(--label-2);
+            text-decoration: line-through;
+            text-decoration-color: var(--label-3);
+        }
+
+        .card-desc {
+            margin-top: 3px;
+            font-size: 13px;
+            color: var(--label-2);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px 12px;
+            margin-top: 9px;
+            font-size: 12px;
+            color: var(--label-2);
+        }
+
+        .meta {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            height: 21px;
+            padding: 0 8px 0 6px;
+            border-radius: 7px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .pill-high { background: var(--red-soft); color: var(--red); }
+        .pill-low { background: var(--gray-soft); color: var(--gray); }
+
+        .list-enter-active {
+            transition: transform 0.6s var(--spring), opacity 0.3s ease;
+        }
+
+        .list-leave-active {
+            transition: transform 0.25s ease, opacity 0.2s ease;
+        }
+
+        .list-enter {
+            opacity: 0;
+            transform: translateY(-10px) scale(0.94);
+        }
+
+        .list-leave-to {
+            opacity: 0;
+            transform: scale(0.92);
+        }
+
+        .list-move {
+            transition: transform 0.5s var(--spring);
+        }
+
+        .empty {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 24px;
+            text-align: center;
+            color: var(--label-3);
+            pointer-events: none;
+        }
+
+        .empty-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 18px;
+            display: grid;
+            place-items: center;
+            background: var(--fill);
+            color: var(--label-2);
+        }
+
+        .empty p {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--label-2);
+        }
+
+        .empty small {
+            font-size: 12px;
+        }
+
+        .fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease; }
+        .fade-enter, .fade-leave-to { opacity: 0; }
+
+        /* Composer */
+        .composer {
+            position: relative;
+            z-index: 20;
+            padding: 12px 24px calc(14px + env(safe-area-inset-bottom));
+            border-top: 1px solid var(--separator);
+            background: var(--glass);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            backdrop-filter: blur(24px) saturate(180%);
+        }
+
+        .composer-inner {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 6px 6px 6px 16px;
+            border-radius: 16px;
+            background: var(--surface);
+            border: 1px solid var(--separator);
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.25s, border-color 0.25s;
+        }
+
+        .composer-inner:focus-within {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-soft);
+        }
+
+        .composer input {
+            flex: 1;
+            min-width: 0;
+            height: 36px;
+            border: none;
+            background: none;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .composer input::placeholder {
+            color: var(--label-2);
+        }
+
+        .composer-assignee {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--label-2);
+            white-space: nowrap;
+        }
+
+        .prio-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            height: 34px;
+            padding: 0 11px;
+            border: none;
+            border-radius: 10px;
+            background: var(--fill);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--label-2);
+            transition: background 0.2s, color 0.2s, transform 0.4s var(--spring-bounce);
+        }
+
+        .prio-btn:active { transform: scale(0.9); }
+        .prio-btn.prio-high { background: var(--red-soft); color: var(--red); }
+        .prio-btn.prio-normal .ai { color: var(--accent); }
+
+        .add-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 11px;
+            background: var(--accent);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            box-shadow: 0 4px 12px color-mix(in srgb, var(--accent) 35%, transparent);
+            transition: opacity 0.2s, transform 0.4s var(--spring-bounce), box-shadow 0.2s;
+        }
+
+        .add-btn:active:not(:disabled) {
+            transform: scale(0.86);
+        }
+
+        .add-btn:disabled {
+            opacity: 0.35;
+            box-shadow: none;
+            cursor: default;
+        }
+
+        /* Sheets / modals */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: var(--overlay);
+            -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(6px);
+        }
+
+        .sheet {
+            width: 100%;
+            max-width: 560px;
+            max-height: min(88dvh, 780px);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border-radius: 22px;
+            background: var(--sheet-bg);
+            box-shadow: var(--shadow-lg);
+            transition: transform 0.45s var(--spring);
+        }
+
+        .sheet-enter-active, .sheet-leave-active {
+            transition: opacity 0.3s ease;
+        }
+
+        .sheet-enter, .sheet-leave-to {
+            opacity: 0;
+        }
+
+        .sheet-enter .sheet {
+            transform: translateY(30px) scale(0.96);
+        }
+
+        .sheet-leave-to .sheet {
+            transform: translateY(16px) scale(0.98);
+            transition-duration: 0.3s;
+            transition-timing-function: ease;
+        }
+
+        .grabber {
+            display: none;
+            width: 38px;
+            height: 5px;
+            border-radius: 3px;
+            margin: 7px auto 0;
+            background: var(--label-3);
+        }
+
+        .sheet-head {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--separator);
+        }
+
+        .sheet-head h2 {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .text-btn {
+            justify-self: end;
+            border: none;
+            background: none;
+            color: var(--accent);
+            font-size: 17px;
+            font-weight: 600;
+            padding: 4px 6px;
+            border-radius: 8px;
+        }
+
+        .text-btn:hover {
+            background: var(--accent-soft);
+        }
+
+        .sheet-body {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            padding: 18px 16px 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .sheet-foot {
+            flex: 0 0 auto;
+            padding: 12px 16px;
+            border-top: 1px solid var(--separator);
+            background: var(--sheet-bg);
+        }
+
+        /* Sections keep their natural height; the body scrolls instead of squashing them */
+        .sheet-body > * {
+            flex-shrink: 0;
+        }
+
+        .group-label {
+            padding: 0 16px 7px;
+            font-size: 13px;
+            color: var(--label-2);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .group {
+            border-radius: 14px;
+            background: var(--surface);
+            overflow: hidden;
+        }
+
+        .row {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-height: 48px;
+            padding: 8px 16px;
+        }
+
+        .row + .row::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 16px;
+            right: 0;
+            height: 1px;
+            background: var(--separator);
+        }
+
+        .group .divider {
+            display: block;
+            height: 1px;
+            margin-left: 16px;
+            background: var(--separator);
+        }
+
+        .row-label {
+            flex: 1;
+            font-size: 15px;
+        }
+
+        .row-value {
+            font-size: 15px;
+            color: var(--label-2);
+        }
+
+        .row select {
+            appearance: none;
+            -webkit-appearance: none;
+            border: none;
+            background: none;
+            outline: none;
+            font-size: 15px;
+            color: var(--label-2);
+            text-align: right;
+            padding-right: 2px;
+            cursor: pointer;
+            max-width: 60%;
+        }
+
+        .row .ai-chevron {
+            color: var(--label-3);
+        }
+
+        .row input {
+            flex: 1;
+            min-width: 0;
+            height: 30px;
+            border: none;
+            background: none;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .row input::placeholder, .notes::placeholder, .title-input::placeholder {
+            color: var(--label-3);
+        }
+
+        .title-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: none;
+            background: none;
+            outline: none;
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .notes {
+            display: block;
+            width: 100%;
+            min-height: 96px;
+            padding: 12px 16px;
+            border: none;
+            background: none;
+            outline: none;
+            resize: none;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .seg {
+            position: relative;
+            display: flex;
+            width: min(270px, 64%);
+            padding: 2px;
+            border-radius: 9px;
+            background: var(--fill);
+        }
+
+        .seg-thumb {
+            position: absolute;
+            top: 2px;
+            bottom: 2px;
+            left: 2px;
+            width: calc((100% - 4px) / 3);
+            border-radius: 7px;
+            background: var(--seg-thumb);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12), 0 3px 1px rgba(0, 0, 0, 0.04);
+            transition: transform 0.5s var(--spring);
+        }
+
+        .seg button {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            height: 30px;
+            border: none;
+            background: none;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .timeline {
+            padding: 6px 16px;
+        }
+
+        .tl-item {
+            position: relative;
+            display: flex;
+            gap: 12px;
+            padding: 9px 0;
+        }
+
+        .tl-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 14px;
+            top: 41px;
+            bottom: -7px;
+            width: 1.5px;
+            border-radius: 1px;
+            background: var(--separator);
+        }
+
+        .tl-icon {
+            width: 29px;
+            height: 29px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            flex: 0 0 auto;
+        }
+
+        .tl-text {
             font-size: 14px;
         }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px 15px;
-            }
-            
-            .header {
-                flex-direction: column;
-                align-items: flex-start;
+
+        .tl-time {
+            font-size: 12px;
+            color: var(--label-2);
+        }
+
+        .wide-btn {
+            width: 100%;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.4s var(--spring-bounce), opacity 0.2s, background 0.2s;
+        }
+
+        .wide-btn:active:not(:disabled) {
+            transform: scale(0.97);
+        }
+
+        .wide-btn.danger {
+            background: var(--surface);
+            color: var(--red);
+        }
+
+        .wide-btn.danger:hover {
+            background: var(--red-soft);
+        }
+
+        .wide-btn.primary {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .wide-btn:disabled {
+            opacity: 0.4;
+            cursor: default;
+        }
+
+        .member-row .row-label small {
+            display: block;
+            font-size: 13px;
+            color: var(--label-2);
+        }
+
+        .empty-inline {
+            padding: 28px 16px;
+            text-align: center;
+            color: var(--label-2);
+            font-size: 14px;
+        }
+
+        .empty-inline .ai {
+            display: block;
+            margin: 0 auto 8px;
+            color: var(--label-3);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            left: 50%;
+            top: calc(14px + env(safe-area-inset-top));
+            z-index: 300;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            max-width: calc(100vw - 32px);
+            padding: 10px 18px 10px 12px;
+            border-radius: 999px;
+            background: var(--toast-bg);
+            color: var(--toast-fg);
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: var(--shadow-lg);
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+
+        .toast .ai {
+            color: var(--green);
+        }
+
+        .toast .draw {
+            animation: ai-draw 0.5s var(--ease-out) 0.15s both;
+        }
+
+        .toast-enter-active { transition: transform 0.55s var(--spring-bounce), opacity 0.25s ease; }
+        .toast-leave-active { transition: transform 0.3s ease, opacity 0.3s ease; }
+        .toast-enter, .toast-leave-to { opacity: 0; transform: translate(-50%, -24px) scale(0.9); }
+
+        /* ========== Desktop: full-screen, content in one centered container ========== */
+        @media (min-width: 1024px) {
+            .topbar,
+            .controls,
+            .board {
+                width: 100%;
+                max-width: 1400px;
+                margin-left: auto;
+                margin-right: auto;
             }
 
-            .header-right {
-                width: 100%;
-                flex-wrap: wrap;
+            .topbar {
+                padding: 26px 32px 12px;
             }
 
-            .header-right .btn {
-                flex: 1 1 calc(50% - 10px);
-                justify-content: center;
+            .controls {
+                padding: 6px 32px 16px;
             }
-            
-            .kanban-board {
-                grid-template-columns: 1fr;
+
+            .board {
+                gap: 20px;
+                padding: 0 32px 20px;
             }
-            
-            .column {
-                min-height: 300px;
-            }
-            
-            .toolbar {
-                flex-direction: column;
-            }
-            
-            .toolbar input[type="text"],
-            .toolbar .btn {
-                width: 100%;
-            }
-            
-            .modal {
-                max-height: 95vh;
+
+            .composer {
+                padding: 14px 32px calc(16px + env(safe-area-inset-bottom));
             }
         }
 
-        @media (max-width: 520px) {
-            .container {
-                padding: 16px 12px;
+        /* ========== Mobile ========== */
+        @media (max-width: 767px) {
+            .topbar {
+                padding: 14px 16px 6px;
             }
 
-            .stats {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+            .title {
+                font-size: 30px;
+                gap: 10px;
             }
 
-            .header-left h1 {
-                font-size: 24px;
+            .app-mark {
+                width: 32px;
+                height: 32px;
+                border-radius: 9px;
             }
 
-            .header-right .btn {
-                padding: 10px 12px;
+            .summary {
                 font-size: 13px;
+                gap: 3px 8px;
             }
 
-            .team-members {
-                flex-wrap: nowrap;
+            .summary .opt {
+                display: none;
+            }
+
+            .progress-row {
+                max-width: none;
+            }
+
+            .actions {
+                gap: 6px;
+            }
+
+            .icon-btn {
+                width: 36px;
+                height: 36px;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+                padding: 6px 16px 10px;
+            }
+
+            .search {
+                flex: none;
+            }
+
+            .kbd {
+                display: none;
+            }
+
+            .chips {
+                margin: 0 -16px;
+                padding: 2px 16px;
+                -webkit-mask-image: none;
+                mask-image: none;
+            }
+
+            .segmented {
+                display: flex;
+            }
+
+            .board {
+                display: flex;
+                gap: 0;
+                padding: 0;
                 overflow-x: auto;
-                padding-bottom: 6px;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: none;
             }
 
-            .member-chip {
-                white-space: nowrap;
-                flex: 0 0 auto;
+            .board::-webkit-scrollbar {
+                display: none;
             }
 
             .column {
-                padding: 14px;
+                flex: 0 0 100%;
+                scroll-snap-align: start;
+                scroll-snap-stop: always;
+                border-radius: 0;
+                background: none;
             }
 
-            .task-card {
-                padding: 12px;
+            .column.drag-over {
+                box-shadow: none;
             }
 
-            .modal-header,
-            .modal-body {
-                padding: 14px;
+            .column-head {
+                display: none;
+            }
+
+            .column-body {
+                padding: 2px 16px 16px;
+            }
+
+            .composer {
+                padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+            }
+
+            .composer-assignee span:not(.avatar) {
+                display: none;
+            }
+
+            .prio-btn span {
+                display: none;
+            }
+
+            .overlay {
+                align-items: flex-end;
+                padding: 0;
+            }
+
+            .sheet {
+                max-width: none;
+                max-height: 94dvh;
+                border-radius: 18px 18px 0 0;
+                padding-bottom: env(safe-area-inset-bottom);
+            }
+
+            .sheet-enter .sheet, .sheet-leave-to .sheet {
+                transform: translateY(100%);
+            }
+
+            .grabber {
+                display: block;
+            }
+
+            .sheet-head {
+                padding: 8px 16px 12px;
+            }
+
+            .toast {
+                top: auto;
+                bottom: calc(84px + env(safe-area-inset-bottom));
+            }
+
+            .toast-enter, .toast-leave-to {
+                transform: translate(-50%, 24px) scale(0.9);
             }
         }
-        
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+
+        @media (max-width: 360px) {
+            .title {
+                font-size: 26px;
+            }
+
+            .summary .opt {
+                display: none;
+            }
         }
-        
-        ::-webkit-scrollbar-track {
-            background: var(--scroll-track);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--scroll-thumb);
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--scroll-thumb-hover);
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="app-loader" class="app-loader" aria-live="polite">
-        <div class="app-loader-card">
-            <div class="app-loader-spinner" aria-hidden="true"></div>
-            <div>Loading…</div>
+    <!-- Splash: logo appears centered, then flies into the header -->
+    <div id="splash" class="splash" aria-hidden="true">
+        <div class="splash-bg"></div>
+        <div class="splash-center">
+            <div class="splash-mark">
+                <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path class="draw" pathLength="1" d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <div class="splash-name">TODO</div>
+            <div class="splash-bar"></div>
         </div>
     </div>
 
-    <div id="app" class="container" v-cloak>
+    <div id="app" class="app" :class="{ ready: ready }" v-cloak>
         <!-- Header -->
-        <div class="header">
-            <div class="header-left">
-                <h1><i class="fas fa-check-circle"></i> TODO</h1>
+        <header class="topbar">
+            <div class="title-block">
+                <div class="eyebrow rise" style="--d: 0">{{ todayLabel }}</div>
+                <h1 class="title">
+                    <span ref="appMark" class="app-mark" :class="{ landed: introDone }">
+                        <a-icon name="check" :size="20" :stroke="2.8"></a-icon>
+                    </span>
+                    <span class="rise" style="--d: 1">TODO</span>
+                </h1>
+                <p class="summary rise" style="--d: 2" v-if="tasks.length">
+                    <span><b><n-roll :value="tasks.length"></n-roll></b> {{ tasks.length === 1 ? 'task' : 'tasks' }}</span>
+                    <i class="sep"></i>
+                    <span class="st" style="--c: var(--accent)"><b><n-roll :value="stats.todo"></n-roll></b> to do</span>
+                    <span class="st" style="--c: var(--orange)"><b><n-roll :value="stats.doing"></n-roll></b> in progress</span>
+                    <span class="st" style="--c: var(--green)"><b><n-roll :value="stats.done"></n-roll></b> done</span>
+                    <template v-if="teamMembers.length">
+                        <i class="sep opt"></i>
+                        <span class="opt"><b><n-roll :value="teamMembers.length"></n-roll></b> {{ teamMembers.length === 1 ? 'member' : 'members' }}</span>
+                    </template>
+                </p>
+                <p class="summary rise" style="--d: 2" v-else>No tasks yet — add your first one below.</p>
+                <div class="progress-row rise" style="--d: 3" v-if="tasks.length">
+                    <div class="progress"><span :style="{ width: (ready ? completion : 0) + '%' }"></span></div>
+                    <span class="progress-label"><n-roll :value="completion"></n-roll>% complete</span>
+                </div>
             </div>
-            <div class="header-right">
-                <button class="btn" @click="toggleTheme" :title="theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'" aria-label="Toggle theme">
-                    <i :class="theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'"></i>
-                    {{ theme === 'dark' ? 'Light' : 'Dark' }}
+
+            <div class="actions rise" style="--d: 1">
+                <button class="icon-btn ah" @click="toggleTheme" :title="theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'" aria-label="Toggle theme">
+                    <transition name="swap" mode="out-in">
+                        <span class="swap-wrap" :key="theme">
+                            <a-icon :name="theme === 'dark' ? 'sun' : 'moon'"></a-icon>
+                        </span>
+                    </transition>
                 </button>
-                <button class="btn" @click="showTeamModal = true">
-                    <i class="fas fa-user-plus"></i> Manage Team
+                <button class="icon-btn ah" @click="showTeamModal = true" title="Manage team" aria-label="Manage team">
+                    <a-icon name="users"></a-icon>
                 </button>
-                <button class="btn" @click="exportData">
-                    <i class="fas fa-upload"></i> Export
-                </button>
-                <button class="btn" @click="importData">
-                    <i class="fas fa-download"></i> Import
-                </button>
-            </div>
-        </div>
-
-        <!-- Stats -->
-        <div class="stats">
-            <div class="stat-card">
-                <span class="number">{{ stats.todo }}</span>
-                <span class="label"><i class="fas fa-circle"></i> To Do</span>
-            </div>
-            <div class="stat-card">
-                <span class="number">{{ stats.doing }}</span>
-                <span class="label"><i class="fas fa-spinner"></i> Doing</span>
-            </div>
-            <div class="stat-card">
-                <span class="number">{{ stats.done }}</span>
-                <span class="label"><i class="fas fa-check-circle"></i> Done</span>
-            </div>
-            <div class="stat-card">
-                <span class="number">{{ teamMembers.length }}</span>
-                <span class="label"><i class="fas fa-users"></i> Team</span>
-            </div>
-        </div>
-
-        <!-- Team Section -->
-        <div class="team-section" v-if="teamMembers.length > 0">
-            <div class="team-header">
-                <h3><i class="fas fa-users"></i> Team Members</h3>
-            </div>
-            <div class="team-members">
-                <div 
-                    class="member-chip"
-                    :class="{ active: selectedMember === null }"
-                    @click="selectedMember = null">
-                    <i class="fas fa-users"></i>
-                    All Members
-                </div>
-                <div 
-                    v-for="member in teamMembers" 
-                    :key="member.id"
-                    class="member-chip"
-                    :class="{ active: selectedMember === member.id }"
-                    @click="selectedMember = member.id">
-                    <div class="member-avatar" :style="{ background: member.color }">
-                        {{ member.initials }}
-                    </div>
-                    {{ member.name }}
-                </div>
-            </div>
-        </div>
-
-        <!-- Toolbar -->
-        <div class="toolbar">
-            <input 
-                type="text" 
-                placeholder="Add new task..." 
-                v-model="newTaskText"
-                @keyup.enter="addTask">
-            <button class="btn primary" @click="addTask">
-                <i class="fas fa-plus"></i> Add Task
-            </button>
-            <input 
-                type="text" 
-                placeholder="Search tasks..." 
-                v-model="searchQuery">
-            <button class="btn" @click="clearDone" v-if="stats.done > 0">
-                <i class="fas fa-trash"></i> Clear Done
-            </button>
-        </div>
-
-        <!-- Kanban Board -->
-        <div class="kanban-board">
-            <!-- TODO Column -->
-            <div 
-                class="column"
-                @drop="onDrop('todo', $event)"
-                @dragover="onDragOver"
-                @dragenter.prevent>
-                <div class="column-header">
-                    <span class="column-title"><i class="fas fa-circle"></i> To Do</span>
-                    <span class="column-count">{{ filteredTodoTasks.length }}</span>
-                </div>
-                
-                <div v-if="filteredTodoTasks.length > 0">
-                    <div 
-                        v-for="task in filteredTodoTasks" 
-                        :key="task.id"
-                        class="task-card"
-                        :class="'priority-' + task.priority"
-                        draggable="true"
-                        @dragstart="onDragStart(task, $event)"
-                        @dragend="onDragEnd"
-                        @dblclick="openTaskModal(task)">
-                        
-                        <div class="task-header">
-                            <div class="task-title">{{ task.text }}</div>
-                            <div class="task-priority" :style="{ color: getPriorityColor(task.priority) }">
-                                <i :class="getPriorityIcon(task.priority)"></i>
-                            </div>
-                        </div>
-                        
-                        <div class="task-meta">
-                            <div class="task-meta-item" v-if="task.assignee">
-                                <div class="task-assignee">
-                                    <div class="assignee-avatar" :style="{ background: getAssigneeColor(task.assignee) }">
-                                        {{ getAssigneeInitials(task.assignee) }}
-                                    </div>
-                                    <span>{{ getAssigneeName(task.assignee) }}</span>
-                                </div>
-                            </div>
-                            <div class="task-meta-item">
-                                <i class="far fa-clock"></i>
-                                {{ formatDate(task.createdAt) }}
-                            </div>
-                            <div class="task-meta-item" v-if="task.activityLog.length > 1">
-                                <i class="fas fa-history"></i>
-                                {{ task.activityLog.length }} updates
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div v-else class="empty-state">
-                    <i class="far fa-circle"></i>
-                    <p>No tasks</p>
-                </div>
-            </div>
-
-            <!-- DOING Column -->
-            <div 
-                class="column"
-                @drop="onDrop('doing', $event)"
-                @dragover="onDragOver"
-                @dragenter.prevent>
-                <div class="column-header">
-                    <span class="column-title"><i class="fas fa-spinner"></i> Doing</span>
-                    <span class="column-count">{{ filteredDoingTasks.length }}</span>
-                </div>
-                
-                <div v-if="filteredDoingTasks.length > 0">
-                    <div 
-                        v-for="task in filteredDoingTasks" 
-                        :key="task.id"
-                        class="task-card"
-                        :class="'priority-' + task.priority"
-                        draggable="true"
-                        @dragstart="onDragStart(task, $event)"
-                        @dragend="onDragEnd"
-                        @dblclick="openTaskModal(task)">
-                        
-                        <div class="task-header">
-                            <div class="task-title">{{ task.text }}</div>
-                            <div class="task-priority" :style="{ color: getPriorityColor(task.priority) }">
-                                <i :class="getPriorityIcon(task.priority)"></i>
-                            </div>
-                        </div>
-                        
-                        <div class="task-meta">
-                            <div class="task-meta-item" v-if="task.assignee">
-                                <div class="task-assignee">
-                                    <div class="assignee-avatar" :style="{ background: getAssigneeColor(task.assignee) }">
-                                        {{ getAssigneeInitials(task.assignee) }}
-                                    </div>
-                                    <span>{{ getAssigneeName(task.assignee) }}</span>
-                                </div>
-                            </div>
-                            <div class="task-meta-item">
-                                <i class="far fa-clock"></i>
-                                {{ formatDate(task.createdAt) }}
-                            </div>
-                            <div class="task-meta-item" v-if="task.activityLog.length > 1">
-                                <i class="fas fa-history"></i>
-                                {{ task.activityLog.length }} updates
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div v-else class="empty-state">
-                    <i class="fas fa-hourglass-half"></i>
-                    <p>No tasks in progress</p>
-                </div>
-            </div>
-
-            <!-- DONE Column -->
-            <div 
-                class="column"
-                @drop="onDrop('done', $event)"
-                @dragover="onDragOver"
-                @dragenter.prevent>
-                <div class="column-header">
-                    <span class="column-title"><i class="fas fa-check-circle"></i> Done</span>
-                    <span class="column-count">{{ filteredDoneTasks.length }}</span>
-                </div>
-                
-                <div v-if="filteredDoneTasks.length > 0">
-                    <div 
-                        v-for="task in filteredDoneTasks" 
-                        :key="task.id"
-                        class="task-card"
-                        :class="'priority-' + task.priority"
-                        draggable="true"
-                        @dragstart="onDragStart(task, $event)"
-                        @dragend="onDragEnd"
-                        @dblclick="openTaskModal(task)">
-                        
-                        <div class="task-header">
-                            <div class="task-title">{{ task.text }}</div>
-                            <div class="task-priority" :style="{ color: getPriorityColor(task.priority) }">
-                                <i :class="getPriorityIcon(task.priority)"></i>
-                            </div>
-                        </div>
-                        
-                        <div class="task-meta">
-                            <div class="task-meta-item" v-if="task.assignee">
-                                <div class="task-assignee">
-                                    <div class="assignee-avatar" :style="{ background: getAssigneeColor(task.assignee) }">
-                                        {{ getAssigneeInitials(task.assignee) }}
-                                    </div>
-                                    <span>{{ getAssigneeName(task.assignee) }}</span>
-                                </div>
-                            </div>
-                            <div class="task-meta-item">
-                                <i class="fas fa-check"></i>
-                                {{ formatDate(task.createdAt) }}
-                            </div>
-                            <div class="task-meta-item" v-if="task.activityLog.length > 1">
-                                <i class="fas fa-history"></i>
-                                {{ task.activityLog.length }} updates
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div v-else class="empty-state">
-                    <i class="far fa-check-circle"></i>
-                    <p>No completed tasks</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Task Detail Modal -->
-        <div class="modal-overlay" :class="{ active: showTaskModal }" @click.self="closeTaskModal">
-            <div class="modal" v-if="currentTask" role="dialog" aria-labelledby="task-modal-title" aria-modal="true">
-                <div class="modal-header">
-                    <h2 id="task-modal-title"><i class="fas fa-tasks"></i> Task Details</h2>
-                    <button class="modal-close" @click="closeTaskModal">
-                        <i class="fas fa-times"></i>
+                <div class="menu-wrap">
+                    <button class="icon-btn ah" @click="showMenu = !showMenu" title="More" aria-label="More actions" aria-haspopup="menu" :aria-expanded="showMenu ? 'true' : 'false'">
+                        <a-icon name="more"></a-icon>
                     </button>
+                    <div v-if="showMenu" class="menu-backdrop" @click="showMenu = false"></div>
+                    <transition name="pop">
+                        <div v-if="showMenu" class="menu" role="menu">
+                            <button class="ah" role="menuitem" @click="showMenu = false; showTeamModal = true">
+                                <a-icon name="user-plus"></a-icon> Manage Team
+                            </button>
+                            <hr>
+                            <button class="ah" role="menuitem" @click="showMenu = false; exportData()">
+                                <a-icon name="download"></a-icon> Export Data <span class="menu-hint">JSON</span>
+                            </button>
+                            <button class="ah" role="menuitem" @click="showMenu = false; importData()">
+                                <a-icon name="upload"></a-icon> Import Data
+                            </button>
+                            <hr>
+                            <button class="ah danger" role="menuitem" :disabled="!stats.done" @click="showMenu = false; clearDone()">
+                                <a-icon name="trash"></a-icon> Clear Completed <span class="menu-hint" v-if="stats.done">{{ stats.done }}</span>
+                            </button>
+                        </div>
+                    </transition>
                 </div>
-                <div class="modal-body">
-                    <!-- Task Title -->
-                    <div class="modal-section">
-                        <h3><i class="fas fa-heading"></i> Title</h3>
-                        <input 
-                            type="text" 
-                            v-model="currentTask.text"
-                            @change="updateTask('title')"
-                            class="field-input lg">
-                    </div>
+            </div>
+        </header>
 
-                    <!-- Task Details Grid -->
-                    <div class="modal-section">
-                        <h3><i class="fas fa-info-circle"></i> Details</h3>
-                        <div class="task-details-grid">
-                            <div class="detail-item">
-                                <div class="detail-label">Status</div>
-                                <div class="detail-value">
-                                    <select v-model="currentTask.status" @change="updateTask('status')">
-                                        <option value="todo">To Do</option>
-                                        <option value="doing">Doing</option>
-                                        <option value="done">Done</option>
-                                    </select>
+        <!-- Search + member filter -->
+        <div class="controls rise" style="--d: 3">
+            <label class="search">
+                <a-icon name="search" :size="16"></a-icon>
+                <input ref="search" type="search" v-model="searchQuery" placeholder="Search tasks" aria-label="Search tasks">
+                <transition name="fade">
+                    <button v-if="searchQuery" class="search-clear ah" @click.prevent="searchQuery = ''" aria-label="Clear search">
+                        <a-icon name="x" :size="12" :stroke="3"></a-icon>
+                    </button>
+                    <span v-else class="kbd">⌘K</span>
+                </transition>
+            </label>
+            <div class="chips" v-if="teamMembers.length">
+                <button class="chip plain" :class="{ active: selectedMember === null }" @click="selectedMember = null">Everyone</button>
+                <button
+                    v-for="member in teamMembers"
+                    :key="member.id"
+                    class="chip"
+                    :class="{ active: selectedMember === member.id }"
+                    @click="selectedMember = selectedMember === member.id ? null : member.id">
+                    <span class="avatar" :style="{ background: member.color }">{{ member.initials }}</span>
+                    {{ member.name }}
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile tabs -->
+        <nav class="segmented rise" style="--d: 4" role="tablist" aria-label="Columns">
+            <span class="segmented-thumb" :style="{ transform: 'translateX(' + activeIndex * 100 + '%)' }"></span>
+            <button
+                v-for="col in columns"
+                :key="col.key"
+                role="tab"
+                :aria-selected="activeColumn === col.key ? 'true' : 'false'"
+                @click="setActiveColumn(col.key)">
+                {{ col.title }} <span class="seg-count"><n-roll :value="col.tasks.length"></n-roll></span>
+            </button>
+        </nav>
+
+        <!-- Board -->
+        <main class="board" ref="board" @scroll.passive="onBoardScroll">
+            <section
+                v-for="(col, ci) in columns"
+                :key="col.key"
+                class="column rise"
+                :style="{ '--d': 4 + ci }"
+                :class="{ 'drag-over': dragOverColumn === col.key }"
+                @dragover.prevent="onDragOver(col.key, $event)"
+                @drop.prevent="onDrop(col.key, $event)">
+                <header class="column-head">
+                    <span class="column-dot" :class="{ pulse: col.key === 'doing' && col.tasks.length }" :style="{ color: col.color }"></span>
+                    <h2 class="column-title">{{ col.title }}</h2>
+                    <span class="column-count"><n-roll :value="col.tasks.length"></n-roll></span>
+                </header>
+
+                <div class="column-body">
+                    <transition-group name="list" tag="div" class="card-list">
+                        <article
+                            v-for="task in col.tasks"
+                            :key="task.id"
+                            class="card"
+                            :class="['p-' + task.priority, { 'is-done': task.status === 'done', dragging: draggedTask && draggedTask.id === task.id }]"
+                            draggable="true"
+                            @dragstart="onDragStart(task, $event)"
+                            @dragend="onDragEnd"
+                            @click="openTaskModal(task)">
+                            <button
+                                class="check"
+                                :class="{ on: task.status === 'done', doing: task.status === 'doing', burst: justDone === task.id }"
+                                @click.stop="toggleDone(task)"
+                                :aria-label="task.status === 'done' ? 'Mark as not done' : 'Mark as done'">
+                                <a-icon name="check" :size="13" :stroke="3.2"></a-icon>
+                            </button>
+                            <div class="card-body">
+                                <div class="card-title">{{ task.text }}</div>
+                                <div class="card-desc" v-if="task.description">{{ task.description }}</div>
+                                <div class="card-meta">
+                                    <span v-if="task.priority !== 'normal'" class="pill" :class="'pill-' + task.priority">
+                                        <a-icon :name="getPriorityIcon(task.priority)" :size="11" :stroke="2.6"></a-icon>
+                                        {{ getPriorityLabel(task.priority) }}
+                                    </span>
+                                    <span class="meta" v-if="task.assignee">
+                                        <span class="avatar xs" :style="{ background: getAssigneeColor(task.assignee) }">{{ getAssigneeInitials(task.assignee) }}</span>
+                                        {{ getAssigneeName(task.assignee) }}
+                                    </span>
+                                    <span class="meta">
+                                        <a-icon name="clock" :size="12"></a-icon>
+                                        {{ formatDate(task.createdAt) }}
+                                    </span>
+                                    <span class="meta" v-if="task.activityLog && task.activityLog.length > 1" :title="task.activityLog.length + ' updates'">
+                                        <a-icon name="history" :size="12"></a-icon>
+                                        {{ task.activityLog.length }}
+                                    </span>
                                 </div>
                             </div>
-                            <div class="detail-item">
-                                <div class="detail-label">Priority</div>
-                                <div class="detail-value">
-                                    <select v-model="currentTask.priority" @change="updateTask('priority')">
-                                        <option value="high">High</option>
-                                        <option value="normal">Normal</option>
-                                        <option value="low">Low</option>
-                                    </select>
+                        </article>
+                    </transition-group>
+
+                    <transition name="fade">
+                        <div v-if="!col.tasks.length" class="empty">
+                            <div class="empty-icon">
+                                <a-icon :name="isFiltering ? 'search' : col.emptyIcon" :size="26" class="ai-loop"></a-icon>
+                            </div>
+                            <p>{{ isFiltering ? 'No matching tasks' : col.emptyText }}</p>
+                            <small v-if="!isFiltering">{{ col.emptyHint }}</small>
+                        </div>
+                    </transition>
+                </div>
+            </section>
+        </main>
+
+        <!-- Composer -->
+        <footer class="composer rise" style="--d: 7">
+            <form class="composer-inner" @submit.prevent="addTask">
+                <input ref="composer" v-model="newTaskText" placeholder="New task…" enterkeyhint="done" aria-label="New task" autocomplete="off">
+                <span class="composer-assignee" v-if="selectedMember !== null" :title="'Assigned to ' + getAssigneeName(selectedMember)">
+                    <span class="avatar xs" :style="{ background: getAssigneeColor(selectedMember) }">{{ getAssigneeInitials(selectedMember) }}</span>
+                    <span>{{ getAssigneeName(selectedMember) }}</span>
+                </span>
+                <button type="button" class="prio-btn ah" :class="'prio-' + newTaskPriority" @click="cyclePriority" :title="'Priority: ' + getPriorityLabel(newTaskPriority)" :aria-label="'Priority: ' + getPriorityLabel(newTaskPriority)">
+                    <a-icon :name="getPriorityIcon(newTaskPriority)" :size="14"></a-icon>
+                    <span>{{ getPriorityLabel(newTaskPriority) }}</span>
+                </button>
+                <button type="submit" class="add-btn ah" :disabled="!newTaskText.trim()" aria-label="Add task">
+                    <a-icon name="arrow-up" :size="18" :stroke="2.6"></a-icon>
+                </button>
+            </form>
+        </footer>
+
+        <!-- Task Detail Sheet -->
+        <transition name="sheet">
+            <div class="overlay" v-if="showTaskModal && currentTask" @click.self="closeTaskModal">
+                <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="task-sheet-title">
+                    <div class="grabber"></div>
+                    <div class="sheet-head">
+                        <span></span>
+                        <h2 id="task-sheet-title">Task Details</h2>
+                        <button class="text-btn" @click="closeTaskModal">Done</button>
+                    </div>
+                    <div class="sheet-body">
+                        <div class="group">
+                            <input class="title-input" v-model="currentTask.text" @change="updateTask('title')" placeholder="Title" aria-label="Title">
+                            <span class="divider"></span>
+                            <textarea class="notes" v-model="currentTask.description" @change="updateTask('description')" placeholder="Add notes…" aria-label="Notes"></textarea>
+                        </div>
+
+                        <div class="group">
+                            <div class="row">
+                                <span class="row-label">Status</span>
+                                <div class="seg" role="radiogroup" aria-label="Status">
+                                    <span class="seg-thumb" :style="{ transform: 'translateX(' + optionIndex(statusOptions, currentTask.status) * 100 + '%)' }"></span>
+                                    <button v-for="opt in statusOptions" :key="opt.value" role="radio" :aria-checked="currentTask.status === opt.value ? 'true' : 'false'" @click="setTaskField('status', opt.value)">{{ opt.label }}</button>
                                 </div>
                             </div>
-                            <div class="detail-item">
-                                <div class="detail-label">Assignee</div>
-                                <div class="detail-value">
-                                    <select v-model="currentTask.assignee" @change="updateTask('assignee')">
-                                        <option :value="null">Unassigned</option>
-                                        <option v-for="member in teamMembers" :key="member.id" :value="member.id">
-                                            {{ member.name }}
-                                        </option>
-                                    </select>
+                            <div class="row">
+                                <span class="row-label">Priority</span>
+                                <div class="seg" role="radiogroup" aria-label="Priority">
+                                    <span class="seg-thumb" :style="{ transform: 'translateX(' + optionIndex(priorityOptions, currentTask.priority) * 100 + '%)' }"></span>
+                                    <button v-for="opt in priorityOptions" :key="opt.value" role="radio" :aria-checked="currentTask.priority === opt.value ? 'true' : 'false'" @click="setTaskField('priority', opt.value)">{{ opt.label }}</button>
                                 </div>
                             </div>
-                            <div class="detail-item">
-                                <div class="detail-label">Created</div>
-                                <div class="detail-value">{{ formatDateTime(currentTask.createdAt) }}</div>
+                            <label class="row ah">
+                                <span class="row-label">Assignee</span>
+                                <select v-model="currentTask.assignee" @change="updateTask('assignee')">
+                                    <option :value="null">Unassigned</option>
+                                    <option v-for="member in teamMembers" :key="member.id" :value="member.id">{{ member.name }}</option>
+                                </select>
+                                <a-icon name="chevron" :size="14"></a-icon>
+                            </label>
+                            <div class="row">
+                                <span class="row-label">Created</span>
+                                <span class="row-value">{{ formatDateTime(currentTask.createdAt) }}</span>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Description -->
-                    <div class="modal-section">
-                        <h3><i class="fas fa-align-left"></i> Description</h3>
-                        <textarea 
-                            v-model="currentTask.description"
-                            @change="updateTask('description')"
-                            placeholder="Add a detailed description..."></textarea>
-                    </div>
-
-                    <!-- Activity Log -->
-                    <div class="modal-section">
-                        <h3><i class="fas fa-history"></i> Activity Log ({{ currentTask.activityLog.length }})</h3>
-                        <div class="activity-log">
-                            <div v-for="(activity, index) in currentTask.activityLog" :key="index" class="activity-item">
-                                <div class="activity-icon" :style="{ background: getActivityIcon(activity.type).color }">
-                                    <i :class="getActivityIcon(activity.type).icon"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <div class="activity-text">{{ activity.text }}</div>
-                                    <div class="activity-time">
-                                        <i class="far fa-clock"></i> {{ formatDateTime(activity.timestamp) }}
+                        <div v-if="currentTask.activityLog && currentTask.activityLog.length">
+                            <div class="group-label">Activity · {{ currentTask.activityLog.length }}</div>
+                            <div class="group timeline">
+                                <div v-for="(activity, index) in currentTask.activityLog" :key="index" class="tl-item">
+                                    <div class="tl-icon" :style="{ background: getActivityIcon(activity.type).color }">
+                                        <a-icon :name="getActivityIcon(activity.type).icon" :size="13" :stroke="2.4"></a-icon>
+                                    </div>
+                                    <div>
+                                        <div class="tl-text">{{ activity.text }}</div>
+                                        <div class="tl-time">{{ formatDateTime(activity.timestamp) }}</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Actions -->
-                    <div class="modal-section">
-                        <button class="btn block" @click="deleteTask">
-                            <i class="fas fa-trash"></i> Delete Task
+                    </div>
+                    <div class="sheet-foot">
+                        <button class="wide-btn danger ah" @click="deleteTask">
+                            <a-icon name="trash" :size="18"></a-icon> Delete Task
                         </button>
                     </div>
                 </div>
             </div>
-        </div>
+        </transition>
 
-        <!-- Team Management Modal -->
-        <div class="modal-overlay" :class="{ active: showTeamModal }" @click.self="showTeamModal = false">
-            <div class="modal" role="dialog" aria-labelledby="team-modal-title" aria-modal="true">
-                <div class="modal-header">
-                    <h2 id="team-modal-title"><i class="fas fa-users"></i> Team Management</h2>
-                    <button class="modal-close" @click="showTeamModal = false">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Add Member Form -->
-                    <div class="modal-section">
-                        <h3><i class="fas fa-user-plus"></i> Add Team Member</h3>
-                        <div class="member-form">
-                            <input 
-                                type="text" 
-                                v-model="newMemberName"
-                                placeholder="Name"
-                                @keyup.enter="addTeamMember">
-                            <input 
-                                type="text" 
-                                v-model="newMemberRole"
-                                placeholder="Role (e.g., Developer)"
-                                @keyup.enter="addTeamMember">
-                            <button class="btn primary" @click="addTeamMember">
-                                <i class="fas fa-plus"></i> Add
-                            </button>
-                        </div>
+        <!-- Team Sheet -->
+        <transition name="sheet">
+            <div class="overlay" v-if="showTeamModal" @click.self="showTeamModal = false">
+                <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="team-sheet-title">
+                    <div class="grabber"></div>
+                    <div class="sheet-head">
+                        <span></span>
+                        <h2 id="team-sheet-title">Team</h2>
+                        <button class="text-btn" @click="showTeamModal = false">Done</button>
                     </div>
-
-                    <!-- Team Members List -->
-                    <div class="modal-section">
-                        <h3><i class="fas fa-users"></i> Team Members ({{ teamMembers.length }})</h3>
-                        <div class="members-list">
-                            <div v-for="member in teamMembers" :key="member.id" class="member-item">
-                                <div class="member-item-avatar" :style="{ background: member.color }">
-                                    {{ member.initials }}
+                    <div class="sheet-body">
+                        <div>
+                            <div class="group-label">Add Member</div>
+                            <div class="group">
+                                <div class="row">
+                                    <input v-model="newMemberName" placeholder="Name" aria-label="Name" @keyup.enter="addTeamMember">
                                 </div>
-                                <div class="member-item-info">
-                                    <div class="member-item-name">{{ member.name }}</div>
-                                    <div class="member-item-role">{{ member.role }}</div>
-                                </div>
-                                <div class="member-item-actions">
-                                    <button class="icon-btn danger" @click="removeTeamMember(member.id)">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
+                                <div class="row">
+                                    <input v-model="newMemberRole" placeholder="Role (e.g. Developer)" aria-label="Role" @keyup.enter="addTeamMember">
                                 </div>
                             </div>
                         </div>
-                        <div v-if="teamMembers.length === 0" class="empty-state">
-                            <i class="fas fa-users"></i>
-                            <p>No team members yet</p>
+                        <button class="wide-btn primary ah" :disabled="!newMemberName.trim()" @click="addTeamMember">
+                            <a-icon name="user-plus" :size="18"></a-icon> Add Member
+                        </button>
+
+                        <div>
+                            <div class="group-label">Members · {{ teamMembers.length }}</div>
+                            <div class="group">
+                                <transition-group name="list" tag="div">
+                                    <div v-for="member in teamMembers" :key="member.id" class="row member-row">
+                                        <span class="avatar lg" :style="{ background: member.color }">{{ member.initials }}</span>
+                                        <span class="row-label">{{ member.name }}<small>{{ member.role }}</small></span>
+                                        <button class="icon-btn sm danger ah" @click="removeTeamMember(member.id)" :aria-label="'Remove ' + member.name">
+                                            <a-icon name="trash" :size="15"></a-icon>
+                                        </button>
+                                    </div>
+                                </transition-group>
+                                <div v-if="!teamMembers.length" class="empty-inline">
+                                    <a-icon name="users" :size="28" class="ai-loop"></a-icon>
+                                    No team members yet
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </transition>
+
+        <!-- Toast -->
+        <transition name="toast">
+            <div class="toast" v-if="toast.visible" :key="toast.id" role="status" aria-live="polite">
+                <a-icon name="circle-check" :size="18"></a-icon>
+                {{ toast.message }}
+            </div>
+        </transition>
     </div>
 
     <!-- Schema.org structured data for SEO -->
@@ -1391,10 +2203,10 @@
       }
     }
     </script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <script src="js/main.js"></script>
-    
+
     <!-- PWA Service Worker Registration -->
     <script>
       if ('serviceWorker' in navigator) {
@@ -1405,7 +2217,7 @@
         });
       }
     </script>
-    
+
     <!-- Google Analytics (Optional - replace with your tracking ID) -->
     <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR-GA-ID"></script>
     <script>

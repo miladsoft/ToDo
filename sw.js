@@ -1,4 +1,4 @@
-const CACHE_NAME = 'todo-v1.0.3';
+const CACHE_NAME = 'todo-v1.1.0';
 const BASE_PATH = '/ToDo';
 
 const urlsToCache = [
@@ -9,8 +9,7 @@ const urlsToCache = [
   `${BASE_PATH}/manifest.json`,
   `${BASE_PATH}/assets/icons/icon-192x192.png`,
   `${BASE_PATH}/assets/icons/icon-512x512.png`,
-  'https://cdn.jsdelivr.net/npm/vue@2',
-  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
+  'https://cdn.jsdelivr.net/npm/vue@2'
 ];
 
 // Install event - cache assets
